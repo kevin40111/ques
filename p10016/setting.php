@@ -56,6 +56,10 @@ return array(
 
     'update' => function($page, $controller) {
         if ($page=='3') {
+            $pages = array(4, 5, 6, 7);
+            if (in_array(Input::get('p3q1'),[3,4,5,7,8,9,10])) {
+                $controller->skip_page($pages);
+            }
         }
     },
 
