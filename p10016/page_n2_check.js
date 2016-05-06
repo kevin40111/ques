@@ -11,7 +11,7 @@ if( !patt_email.test($('input[name=p2q1t1]').val()) ) {
     $('#QID_sw8az1zb').parent().removeClass('mark');
 }
 
-if( !patt_is_cellphone.test($('input[name=p2q1t2]').val()) && !patt_home_number.test($('input[name=p2q1t2]').val()) ) {
+if (!patt_home_number.test($('input[name=p2q1t2]').val()) ) {
     $('#QID_sw8az1zb').parent().addClass('mark');
     alert('手機或室內電話 格式錯誤');
     return false;
