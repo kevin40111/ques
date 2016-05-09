@@ -1,5 +1,5 @@
 <?php
-$table_prefix = 'rowdata.dbo.tiped_103_0016_p3';
+$table_prefix = 'tiped_104_0016.dbo.tiped_104_0016_p3';
 $newcid = Answerer::newcid();
 
 $network = DB::table($table_prefix . '_network AS n')
@@ -19,12 +19,13 @@ $my_commends = DB::table($table_prefix . '_network')->where('newcid_commend', $n
 
 $newcid_commend = $network->newcid_commend;
 
-$friends = DB::table('rows.dbo.row_20150826_154415_lfr66 AS u')
-	->leftJoin('rows.dbo.row_20150826_154415_lfr66 AS um', 'u.C174', '=', 'um.C174')
+$friends = DB::table('rows.dbo.row_20160429_154625_zbd7l AS u')
+	->leftJoin('rows.dbo.row_20160429_154625_zbd7l AS um', function($join){
+		$join->on('u.C1088', '=', 'um.C1088')->on('u.C1089', '=', 'um.C1089');
+	})
 	->leftJoin($table_prefix . '_network AS n', 'u.id', '=', 'n.newcid')
-	->where('u.C171', 100)->where('u.C171', 100)
 	->whereNull('n.complete')
-	->where('um.id', $newcid)->select('u.C180 AS stdname')->get();
+	->where('um.id', $newcid)->select('u.C1086 AS stdname','u.id')->get();
 
 $wait_name = '';
 if (!empty($friends)) {
