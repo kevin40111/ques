@@ -79,9 +79,8 @@ foreach($commends as $i => $commend){
 				<h3 class="ui header">您的推薦ID</h3>
 				<p><span style="color:#00F"><?=$network->id?></span></p>
 				<h3 class="ui header">個人填答網址</h3>
-				<a target="_blank" href="<?=secure_url('', $parameters = array('p10016')) . '?id=' . $network->id?>"><?=secure_url('', $parameters = array('p10016')) . '?id=' . $network->id?></a>
+				<p><span style="color:#F00"><?=secure_url('', $parameters = array('p10016')) . '?id=' . $network->id?></span></p>
 			</div>
-
 		</div>
 	</div>
 

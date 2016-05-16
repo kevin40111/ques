@@ -1,0 +1,1 @@
+<img width="851px" height="373px" class="ui centered image"  src="/resource/newteacher104/0.jpg">
