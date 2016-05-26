@@ -25,8 +25,8 @@ return array(
         ),
         'checker' => function(&$validator, $controller) {
             try {
-                if (DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->exists()) {
-                    $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->first();
+                if (DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->exists()) {
+                    $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->first();
                     Answerer::login('teacherpeer104', $user->token);
                 } else {
                     $validator->getMessageBag()->add('key','網址連結有誤');
@@ -43,8 +43,8 @@ return array(
     },
 
     'blade' => function($page, &$init) {
-        $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer AS tokenInfo')
-            ->leftJoin('rows_import.dbo.row_20151120_115629_t0ixj AS teacherInfo','tokenInfo.id','=','teacherInfo.C95')
+        $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer AS tokenInfo')
+            ->leftJoin('rows.dbo.row_20151120_115629_t0ixj AS teacherInfo','tokenInfo.stdidnumber','=','teacherInfo.C95')
             ->select('tokenInfo.peer_name','teacherInfo.C87')
             ->where('tokenInfo.token', Answerer::newcid())
             ->first();
@@ -63,12 +63,12 @@ return array(
 
     'hide' => function($page){
         if ($page == 3) {
-            $peer = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')
+            $peer = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')
                 ->where('token', Answerer::newcid())
                 ->select('token','school_id','peer_name')
                 ->first();
 
-            $peers_pstat = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer as peer')
+            $peers_pstat = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer as peer')
                 ->leftJoin('tted_104.dbo.teacherpeer104_pstat as pstat','peer.token','=','pstat.newcid')
                 ->where('peer.school_id', $peer->school_id)
                 ->where('peer.peer_name', $peer->peer_name)
