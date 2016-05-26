@@ -1,0 +1,1 @@
+<img class="ui centered image" src="/resource/104principal/images/8.jpg">
