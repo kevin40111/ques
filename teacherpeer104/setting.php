@@ -17,22 +17,22 @@ return array(
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'key' => 'required|alpha_dash',
+            'token' => 'required|alpha_dash',
         ),
         'input_rull_message' => array(
-            'key.required' =>'網址連結有誤',
-            'key.alpha_dash' =>'網址連結有誤',
+            'token.required' =>'網址連結有誤',
+            'token.alpha_dash' =>'網址連結有誤',
         ),
         'checker' => function(&$validator, $controller) {
             try {
-                if (DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->exists()) {
-                    $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->first();
+                if (DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
+                    $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
                     Answerer::login('teacherpeer104', $user->token);
                 } else {
-                    $validator->getMessageBag()->add('key','網址連結有誤');
+                    $validator->getMessageBag()->add('token','網址連結有誤');
                 } 
             } catch (Exception $e) {
-                $validator->getMessageBag()->add('key','網址連結有誤');
+                $validator->getMessageBag()->add('token','網址連結有誤');
                 // echo $e->getMessage();exit();
             }
         }

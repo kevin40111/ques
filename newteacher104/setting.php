@@ -17,53 +17,43 @@ return array(
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'identity_id' => 'required_without:passport_id|alpha_num|size:10',
-            'passport_id' => 'required_without:identity_id|alpha_num|max:15'
+            'token' => 'required|alpha_dash',
         ),
         'input_rull_message' => array(
-            'identity_id.required_without' =>'身分證字號必填',
-            'identity_id.alpha_num' =>'身分證字號格式錯誤',
-            'identity_id.size' =>'身分證字號必需是10個字',
-
-            'passport_id.required_without' =>'居留證、護照號碼必填',
-            'passport_id.alpha_num' =>'居留證、護照號碼格式錯誤',
-            'passport_id.max' =>'居留證、護照號碼不能超過15個字',
+            'token.required' =>'網址連結有誤',
+            'token.alpha_dash' =>'網址連結有誤',
         ),
         'checker' => function(&$validator, $controller) {
-            if (Input::has('identity_id') && Input::has('passport_id')) {
+            try {
+                if (DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
+                    $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
+                    Answerer::login('teacherpeer104', $user->token);
+                } else {
+                    $validator->getMessageBag()->add('token','網址連結有誤');
+                } 
+            } catch (Exception $e) {
+                $validator->getMessageBag()->add('token','網址連結有誤');
+                // echo $e->getMessage();exit();
+            }
+            /*if (Input::has('identity_id') && Input::has('passport_id')) {
                 $validator->getMessageBag()->add('identity_id','不能同時輸入身分證及居留證、護照號碼');
             } else {
                 if (Input::has('identity_id')) {
-                    $identity_id = strtoupper(Input::get('identity_id'));
-                    $pcreate_newcid = createnewcid($identity_id);
-                    if (!DB::table('rows.dbo.row_20160125_152446_1a57z_map')->where('newcid', $pcreate_newcid)->exists()) {
-                        DB::table('rows.dbo.row_20160125_152446_1a57z_map')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
-                    }   
-                    Answerer::login('104grade11', $pcreate_newcid);
-
-
                     $identity_id = strtoupper(Input::get('identity_id'));
 
                     if (!check_id_number($identity_id)) {
                         $validator->getMessageBag()->add('identity_id','身分證字號錯誤');
                     } else {
-                        if (DB::table('rows_import.dbo.row_20151120_115629_t0ixj')->where('C95', $identity_id)->exists()) {
+                        if (DB::table('rows.dbo.row_20151120_115629_t0ixj')->where('C95', $identity_id)->exists()) {
                             $pcreate_newcid = createnewcid($identity_id);
-                            if (!DB::table('rows_import.dbo.row_20151120_115629_t0ixj_map')->where('newcid', $pcreate_newcid)->exists()) {
-                                DB::table('rows_import.dbo.row_20151120_115629_t0ixj_map')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
+                            if (!DB::table('rows.dbo.row_20151120_115629_t0ixj_map')->where('newcid', $pcreate_newcid)->exists()) {
+                                DB::table('rows.dbo.row_20151120_115629_t0ixj_map')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
                             }
                             Answerer::login('newteacher104', $pcreate_newcid);
                         }  
                     }
                 }
-                if (Input::has('passport_id')) {
-                    $passport_id = strtoupper(Input::get('passport_id'));
-                    if (DB::table('rows_import.dbo.row_20150925_121612_tsttf')->where('C32', $passport_id)->exists()) {
-                        $user = DB::table('rows_import.dbo.row_20150925_121612_tsttf')->where('C32', $passport_id)->first();
-                        Answerer::login('newteacher104', $user->id);
-                    }
-                }
-            }
+            }*/
         }
     ),
 
@@ -76,13 +66,17 @@ return array(
         $stdschoolsys = [1 => '一般日間', 2 => '進修部、在職專班'];
         
         if ($page=='3') {
-            $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj AS userinfo')
-                ->leftJoin('rows_import.dbo.row_20151120_115629_t0ixj_map AS map', 'userinfo.C95', '=', 'map.stdidnumber')
+            $name = '';
+            $user = DB::table('rows.dbo.row_20151120_115629_t0ixj AS userinfo')
+                ->leftJoin('rows.dbo.row_20151120_115629_t0ixj_map AS map', 'userinfo.C95', '=', 'map.stdidnumber')
                 ->where('map.newcid', Answerer::newcid())
                 ->select('userinfo.C87')
                 ->first();
+            if (!empty($user->C87)) {
+                $name = $user->C87;
+            }
             return array(
-                'name' => $user->C87,
+                'name' => $name,
             );
         }
     },

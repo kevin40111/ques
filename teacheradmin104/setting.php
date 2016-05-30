@@ -17,22 +17,16 @@ return array(
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'identity_id' => 'required_without:passport_id|alpha_num|size:10',
-            'passport_id' => 'required_without:identity_id|alpha_num|max:15'
+            'token' => 'required|alpha_dash',
         ),
         'input_rull_message' => array(
-            'identity_id.required_without' =>'身分證字號必填',
-            'identity_id.alpha_num' =>'身分證字號格式錯誤',
-            'identity_id.size' =>'身分證字號必需是10個字',
-
-            'passport_id.required_without' =>'居留證、護照號碼必填',
-            'passport_id.alpha_num' =>'居留證、護照號碼格式錯誤',
-            'passport_id.max' =>'居留證、護照號碼不能超過15個字',
+            'token.required' =>'網址連結有誤',
+            'token.alpha_dash' =>'網址連結有誤',
         ),
         'checker' => function(&$validator, $controller) {
             try {
-                if (DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->exists()) {
-                    $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('key'))->first();
+                if (DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
+                    $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
                     Answerer::login('teacherpeer104', $user->token);
                 } else {
                     $validator->getMessageBag()->add('key','網址連結有誤');
