@@ -27,7 +27,7 @@ return array(
             try {
                 if (DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
                     $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
-                    Answerer::login('teacherpeer104', $user->token);
+                    Answerer::login('teacheradmin104', $user->token);
                 } else {
                     $validator->getMessageBag()->add('key','網址連結有誤');
                 } 
