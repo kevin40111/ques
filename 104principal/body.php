@@ -1,5 +1,9 @@
 <h4 class="ui dividing header"><?=$doc->title?></h4>
-
+<!-- <div class="ui dividing header">
+    <label>因<span style="color:red"> 6/7、6/8</span> 中心設備維護停機，暫停線上調查作業<br>若造成您的不便，敬祈見諒。</label>
+    <br>
+    <br>
+</div> -->
 <div class="ui message">
     <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
 </div>
