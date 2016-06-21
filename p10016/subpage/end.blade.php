@@ -35,6 +35,28 @@ if (!empty($friends)) {
 	$wait_name .= '<div>您同系的同學都已填完問卷！謝謝您！</div>';
 }
 
+$orders = DB::table($table_prefix . '_network AS n1')
+	->leftJoin('rows.dbo.row_20160429_153119_mbwud AS u', 'n1.newcid', '=', 'u.id')
+	->where('n1.complete', true)
+	->orderBy('n1.completed_at', 'ASC')
+	->select('n1.id', 'n1.completed_at', 'u.C1082 AS dep', 'u.C1080 AS stdname')
+	->distinct()
+	->take(100)->get();
+
+$completedRank = '';
+foreach($orders as $i => $order){
+	$completedRank .= '<tr class="center aligned "';
+	if ($network->id == $order->id) {
+		$completedRank .= 'style="background-color:#FFD2D2"';
+	}
+	$completedRank .= '>
+		<td width="48">'.($i+1).'</td>
+		<td style="color:blue" width="100">100元禮卷</td>
+		<td width="200">'.$order->dep.'</td>
+		<td width="100">'.$order->stdname.'</td>
+		</tr>';
+}
+
 
 $commends = DB::table($table_prefix . '_network AS n1')
 	->leftJoin($table_prefix . '_network AS n2', 'n1.newcid_commend', '=','n2.newcid')	
@@ -53,13 +75,18 @@ foreach($commends as $i => $commend){
 	if ($i==1) $gift_text = '<span style="color:blue">2000元禮券</span>';
 	if ($i==2) $gift_text = '<span style="color:blue">1000元禮券</span>';
 	if ($i>2)  $gift_text = '100元禮券';
-	$rankstring .= '<tr>
+	$rankstring .= '<tr class="center aligned "';
+	if ($network->id == $commend->id) {
+		$rankstring .= 'style="background-color:#FFD2D2"';
+	}
+	$rankstring .= '>
 		<td>' . ($i+1).'</td>
 		<td>' . $gift_text.'</td>
 		<td>' . $commend->id.'</td>
 		<td>' . $commend->count.'</td>
 		</tr>';
 }
+
 ?>
 
 <div class="ui inverted vertical grey center aligned segment" style="min-height:300px">
@@ -109,29 +136,46 @@ foreach($commends as $i => $commend){
 </div>	
 
 <div class="ui vertical stripe basic segment" style="padding:8em 0 8em 0">
-
-	<div class="ui text container">
-		<h4 class="ui horizontal header divider">即時排行榜</h4>
-		<table class="ui very basic table">
-			<thead>
-				<tr>
-					<th width="48">名次</th>
-					<th>獎項</th>
-					<th width="120">推薦ID</th>
-					<th width="80">推薦人數</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?=$rankstring?>
-				<tr>
-					<td colspan="4">
-						<p>註1：推薦人數僅採計「完成問卷」人數。當推薦人數相同時，早填者的名次優於晚填者。</p>
-						<p>註2：調查結束日時的名次才是給獎依據，獎項僅發1至10名。</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="ui equal width grid">
+		<div class="ui text container column">
+			<h4 class="ui horizontal header divider">填答排行榜</h4>
+			<table class="ui very basic table">
+				<thead>
+					<tr class="center aligned">
+						<th width="48">名次</th>
+						<th>獎項</th>
+						<th width="200">系所</th>
+						<th width="100">姓名</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?=$completedRank?>
+				</tbody>
+			</table>
+		</div>
+		<div class="ui text container column">
+			<h4 class="ui horizontal header divider">推薦排行榜</h4>
+			<table class="ui very basic table">
+				<thead>
+					<tr class="center aligned">
+						<th width="48">名次</th>
+						<th>獎項</th>
+						<th width="120">推薦ID</th>
+						<th width="80">推薦人數</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?=$rankstring?>
+					<tr>
+						<td colspan="4">
+							<p>註1：推薦人數僅採計「完成問卷」人數。當推薦人數相同時，早填者的名次優於晚填者。</p>
+							<p>註2：調查結束日時的名次才是給獎依據，獎項僅發1至10名。</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-
 </div>
+
 @include('ques.data.p10016.footer')
