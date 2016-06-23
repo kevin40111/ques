@@ -70,10 +70,7 @@ $commends = DB::table($table_prefix . '_network AS n1')
 
 $rankstring = '';
 foreach($commends as $i => $commend){
-	if ($i==0) $gift_text = '<span style="color:blue">3000元禮券</span>';
-	if ($i==1) $gift_text = '<span style="color:blue">2000元禮券</span>';
-	if ($i==2) $gift_text = '<span style="color:blue">1000元禮券</span>';
-	if ($i>2)  $gift_text = '100元禮券';
+	$gift_text = '<span style="color:blue">500元禮券</span>';
 	$rankstring .= '<tr class="center aligned "';
 	if ($network->id == $commend->id) {
 		$rankstring .= 'style="background-color:#FFD2D2"';
