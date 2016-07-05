@@ -135,22 +135,6 @@ foreach($commends as $i => $commend){
 <div class="ui vertical stripe basic segment" style="padding:8em 0 8em 0">
 	<div class="ui equal width grid">
 		<div class="ui text container column">
-			<h4 class="ui horizontal header divider">填答排行榜</h4>
-			<table class="ui very basic table">
-				<thead>
-					<tr class="center aligned">
-						<th width="48">名次</th>
-						<th>獎項</th>
-						<th width="200">系所</th>
-						<th width="100">姓名</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?=$completedRank?>
-				</tbody>
-			</table>
-		</div>
-		<div class="ui text container column">
 			<h4 class="ui horizontal header divider">推薦排行榜</h4>
 			<table class="ui very basic table">
 				<thead>
@@ -169,6 +153,23 @@ foreach($commends as $i => $commend){
 							<p>註2：調查結束日時的名次才是給獎依據，獎項僅發1至10名。</p>
 						</td>
 					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="ui text container column">
+			<h4 class="ui horizontal header divider">早鳥好康填寫排行榜</h4>
+			<center><h5><前100名填答者即獲100元超商禮券></h5></center>
+			<table class="ui very basic table">
+				<thead>
+					<tr class="center aligned">
+						<th width="48">名次</th>
+						<th>獎項</th>
+						<th width="200">系所</th>
+						<th width="100">姓名</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?=$completedRank?>
 				</tbody>
 			</table>
 		</div>
