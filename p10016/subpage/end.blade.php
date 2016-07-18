@@ -53,7 +53,7 @@ foreach($orders as $i => $order){
 		<td width="48">'.($i+1).'</td>
 		<td style="color:blue" width="100">100元禮卷</td>
 		<td width="200">'.$order->dep.'</td>
-		<td width="100">'.$order->stdname.'</td>
+		<td width="100">'.$order->id.'</td>
 		</tr>';
 }
 
@@ -156,23 +156,25 @@ foreach($commends as $i => $commend){
 				</tbody>
 			</table>
 		</div>
-		<div class="ui text container column">
-			<h4 class="ui horizontal header divider">早鳥好康填寫排行榜</h4>
-			<center><h5><前100名填答者即獲100元超商禮券></h5></center>
-			<table class="ui very basic table">
-				<thead>
-					<tr class="center aligned">
-						<th width="48">名次</th>
-						<th>獎項</th>
-						<th width="200">系所</th>
-						<th width="100">姓名</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?=$completedRank?>
-				</tbody>
-			</table>
-		</div>
+		<?php if (count($orders) <= 100) : ?>
+			<div class="ui text container column">
+				<h4 class="ui horizontal header divider">早鳥好康填寫排行榜</h4>
+				<center><h5><前100名填答者即獲100元超商禮券></h5></center>
+				<table class="ui very basic table">
+					<thead>
+						<tr class="center aligned">
+							<th width="48">名次</th>
+							<th>獎項</th>
+							<th width="200">系所</th>
+							<th width="100">推薦ID</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?=$completedRank?>
+					</tbody>
+				</table>
+			</div>
+		<?php endif ?>
 	</div>
 </div>
 
