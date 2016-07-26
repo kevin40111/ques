@@ -4,7 +4,7 @@
 
 	<div class="ui centered card">
 		<div class="image">
-			<img src="/resource/105grade10/images/g3.png">
+			<img src="/resource/105grade10/images/g1.png">
 		</div>
 		<div class="content">
 			<a class="header">頭獎 超商禮券3000元 1名</a>
@@ -13,7 +13,7 @@
 
 	<div class="ui centered card">
 		<div class="image">
-			<img src="/resource/105grade10/images/g3.png">
+			<img src="/resource/105grade10/images/g1.png">
 		</div>
 		<div class="content">
 			<a class="header">貳獎 超商禮券1000元 1名</a>
@@ -22,7 +22,7 @@
 
 	<div class="ui centered card">
 		<div class="image">
-			<img src="/resource/105grade10/images/g3.png">
+			<img src="/resource/105grade10/images/g1.png">
 		</div>
 		<div class="content">
 			<a class="header">參獎 超商禮券100元 1000名</a>

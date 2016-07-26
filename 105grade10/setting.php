@@ -19,13 +19,9 @@ return array(
 		'testID' => 'A228909170',
 		'primaryID' => 'newcid',
 		'input_rull' => array(	
-			//'sch' =>  'required|alpha_num|size:6',
 			'identity_id' => 'required|alpha_num|size:10'				
 		),
 		'input_rull_message' => array(
-			/*'sch.required' =>'學校名稱必選',
-			'sch.alpha_num' =>'學校名稱格式錯誤',
-			'sch.size' =>'學校名稱必需選擇',*/
 			'identity_id.required' =>'身分證字號必填',
 			'identity_id.alpha_num' =>'身分證字號格式錯誤',
 			'identity_id.size' =>'身分證字號必需是10個字'	
