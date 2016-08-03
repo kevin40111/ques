@@ -63,6 +63,14 @@ return array(
 	'blade' => function($page, &$init){	
 		if( is_null(Answerer::newcid()) )
 			return false;
+		echo '<style type="text/css">
+				div,table,select {
+					font-size: 18px;
+				}
+				textarea {
+					font-size: 15px;
+				}
+			</style>';
 	},
             
 	'hide' => function($page){
