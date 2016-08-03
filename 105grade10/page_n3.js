@@ -29,7 +29,7 @@ $('select[name=p3s20]').change(function() {
             for( var i in data ){
                 $('select[name=p3s19] > option[value=-9]').after('<option value="'+i+'">'+data[i]+'</option>');
             }
-            $("select[name=p3s19]").prop('disabled', false);
+            if (data.length != 0) { $("select[name=p3s19]").prop('disabled', false);}
         }).error(function(e){
             console.log(e);
         });
@@ -48,7 +48,7 @@ $('select[name=p3s11]').change(function() {
             for( var i in data ){
                 $('select[name=p3s10] > option[value=-9]').after('<option value="'+i+'">'+data[i]+'</option>');
             }
-            $("select[name=p3s10]").prop('disabled', false);
+            if (data.length != 0) { $("select[name=p3s10]").prop('disabled', false);}
         }).error(function(e){
             console.log(e);
         });
@@ -67,7 +67,7 @@ $('select[name=p3s7]').change(function() {
             for( var i in data ){
                 $('select[name=p3s6] > option[value=-9]').after('<option value="'+i+'">'+data[i]+'</option>');
             }
-            $("select[name=p3s6]").prop('disabled', false);
+            if (data.length != 0) { $("select[name=p3s6]").prop('disabled', false);}
         }).error(function(e){
             console.log(e);
         });
@@ -86,7 +86,7 @@ $('select[name=p3s3]').change(function() {
             for( var i in data ){
                 $('select[name=p3s2] > option[value=-9]').after('<option value="'+i+'">'+data[i]+'</option>');
             }
-            $("select[name=p3s2]").prop('disabled', false);
+            if (data.length != 0) { $("select[name=p3s2]").prop('disabled', false);}
         }).error(function(e){
             console.log(e);
         });
