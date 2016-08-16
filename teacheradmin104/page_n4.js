@@ -28,9 +28,9 @@ $(function () {
         });
     }
 
-    var set_school = function (to,source) {
-        var school = source.text();
-        if (source.val() == '-9') {
+    var set_school = function (to,element) {
+        var school = element.text();
+        if (element.val() == '-9') {
             school = '';
         }
         $(to).val(school);

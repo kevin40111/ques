@@ -25,8 +25,8 @@ return array(
         ),
         'checker' => function(&$validator, $controller) {
             try {
-                if (DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
-                    $user = DB::table('rows_import.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
+                if (DB::table('rows.dbo.row_20160121_182751_kljan_token')->where('token', Input::get('token'))->exists()) {
+                    $user = DB::table('rows.dbo.row_20160121_182751_kljan_token')->where('token', Input::get('token'))->first();
                     Answerer::login('teacheradmin104', $user->token);
                 } else {
                     $validator->getMessageBag()->add('key','網址連結有誤');
@@ -35,30 +35,6 @@ return array(
                 $validator->getMessageBag()->add('key','網址連結有誤');
                 // echo $e->getMessage();exit();
             }
-            
-            /*if (Input::has('identity_id') && Input::has('passport_id')) {
-                $validator->getMessageBag()->add('identity_id','不能同時輸入身分證及居留證、護照號碼');
-            } else {
-                if (Input::has('identity_id')) {
-                    $identity_id = strtoupper(Input::get('identity_id'));
-
-                    if (!check_id_number(Input::get('identity_id'))) {
-                        $validator->getMessageBag()->add('identity_id','身分證字號錯誤');
-                    } else {
-                        if (DB::table('rows_import.dbo.row_20150925_121612_tsttf')->where('C31', $identity_id)->exists()) {
-                            $user = DB::table('rows_import.dbo.row_20150925_121612_tsttf')->where('C31', $identity_id)->first();
-                            Answerer::login('teacheradmin104', $user->id);
-                        }  
-                    }
-                }
-                if (Input::has('passport_id')) {
-                    $passport_id = strtoupper(Input::get('passport_id'));
-                    if (DB::table('rows_import.dbo.row_20150925_121612_tsttf')->where('C32', $passport_id)->exists()) {
-                        $user = DB::table('rows_import.dbo.row_20150925_121612_tsttf')->where('C32', $passport_id)->first();
-                        Answerer::login('teacheradmin104', $user->id);
-                    }
-                }
-            }*/
         }
     ),
 
@@ -71,13 +47,13 @@ return array(
         $stdschoolsys = [1 => '一般日間', 2 => '進修部、在職專班'];
         
         if ($page=='3') {
-            $user = DB::table('rows_import.dbo.row_20150925_121612_tsttf AS userinfo')->where('userinfo.id', Answerer::newcid())
-                ->leftJoin('plat_public.dbo.university_school AS school', 'userinfo.C23', '=', 'school.id')
+            $user = DB::table('rows.dbo.row_20160121_182751_kljan_token AS userinfo')->where('userinfo.token', Answerer::newcid())
+                ->leftJoin('plat_public.dbo.university_school AS school', 'userinfo.school_id', '=', 'school.id')
                 ->orderBy('school.year', 'desc')
-                ->select('school.name AS schoolname', 'userinfo.C26', 'userinfo.C28', 'userinfo.C29', 'userinfo.C30')
+                ->select('school.name AS schoolname', 'userinfo.name')
                 ->first();
             return array(
-                'name' => $user->C30,              
+                'name' => $user->name,
             );
         }
     },

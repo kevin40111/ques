@@ -25,9 +25,9 @@ return array(
         ),
         'checker' => function(&$validator, $controller) {
             try {
-                if (DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
-                    $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
-                    Answerer::login('newteacher104', $user->token);
+                $token = strtolower(Input::get('token'));
+                if (DB::table('rows.dbo.row_20151120_115629_t0ixj_map')->where('newcid', $token)->exists()) {
+                    Answerer::login('newteacher104', $token);
                 } else {
                     $validator->getMessageBag()->add('token','網址連結有誤');
                 } 
@@ -35,25 +35,6 @@ return array(
                 $validator->getMessageBag()->add('token','網址連結有誤');
                 // echo $e->getMessage();exit();
             }
-            /*if (Input::has('identity_id') && Input::has('passport_id')) {
-                $validator->getMessageBag()->add('identity_id','不能同時輸入身分證及居留證、護照號碼');
-            } else {
-                if (Input::has('identity_id')) {
-                    $identity_id = strtoupper(Input::get('identity_id'));
-
-                    if (!check_id_number($identity_id)) {
-                        $validator->getMessageBag()->add('identity_id','身分證字號錯誤');
-                    } else {
-                        if (DB::table('rows.dbo.row_20151120_115629_t0ixj')->where('C95', $identity_id)->exists()) {
-                            $pcreate_newcid = createnewcid($identity_id);
-                            if (!DB::table('rows.dbo.row_20151120_115629_t0ixj_map')->where('newcid', $pcreate_newcid)->exists()) {
-                                DB::table('rows.dbo.row_20151120_115629_t0ixj_map')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
-                            }
-                            Answerer::login('newteacher104', $pcreate_newcid);
-                        }  
-                    }
-                }
-            }*/
         }
     ),
 
@@ -98,13 +79,13 @@ return array(
                 if ($page3->p3q6 == '1' || $page3->p3q6 == '3') {
                     for ($i=1; $i <= 9; $i++) {
                         if ( $i != 4 && $page3->{'p3q8c'.$i} == '1' ) {
-                            $all_false = false;
+                            $flag = false;
                             break;
                         } else {
-                            $all_false = true;
+                            $flag = true;
                         }
                     }
-                    if ($page3->p3q8c4 == '1' && $all_false == true) {
+                    if ($page3->p3q8c4 == '1' && $flag == true) {
                         $disable = true;
                     } 
                 } elseif ($page3->p3q6 == '2') {
