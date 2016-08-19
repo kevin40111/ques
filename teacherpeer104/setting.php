@@ -39,7 +39,34 @@ return array(
     ),
 
     'update' => function($page, $controller){
-       
+        if ($page == '1') {
+            $peer = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')
+                ->where('token', Answerer::newcid())
+                ->select('token','school_id','peer_name')
+                ->first();
+
+            $peers_pstat = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer as peer')
+                ->leftJoin('tted_104.dbo.teacherpeer104_pstat as pstat','peer.token','=','pstat.newcid')
+                ->where('peer.school_id', $peer->school_id)
+                ->where('peer.peer_name', $peer->peer_name)
+                ->where('peer.token','!=', $peer->token)
+                ->select('pstat.page')
+                ->get();
+
+            $pages = [];
+            if (!empty($peers_pstat)) {
+                foreach ($peers_pstat as $peer_pstat) {
+                    if ($peer_pstat->page >= 6) {
+                        $pages [] = 5;
+                        if ($peer_pstat->page >= 7) {
+                            $pages [] = 6;
+                        }
+                    }
+                }
+                $pages = array_values(array_unique($pages));
+            }
+            $controller->skip_page($pages);
+        }
     },
 
     'blade' => function($page, &$init) {
