@@ -7,13 +7,13 @@
             <img src="/resource/105parent11/images/g03.jpg">
         </div>
         <div class="content center aligned">
-            <a class="header">頭獎 超商禮卷 2000元 5名</a>
+            <a class="header">頭獎 超商禮券 2000元 5名</a>
         </div>
         <div class="content center aligned">
-            <a class="header">貳獎 超商禮卷 500元 50名</a>
+            <a class="header">貳獎 超商禮券 500元 50名</a>
         </div>
         <div class="content center aligned">
-            <a class="header">參獎 超商禮卷 100元 700名</a>
+            <a class="header">參獎 超商禮券 100元 700名</a>
         </div>
     </div>
 

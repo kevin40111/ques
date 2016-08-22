@@ -1,1 +1,1 @@
-<img class="ui centered image" src="/resource/<?=$doc->dir?>/images/10.jpg">
+<img class="ui centered image" src="/resource/<?=$doc->dir?>/images/9.jpg">

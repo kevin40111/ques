@@ -35,7 +35,7 @@ return array(
                 $identity_id = strtoupper(Input::get('identity_id'));
                 $pcreate_newcid = createnewcid($identity_id);
 
-                $user_table = DB::table('rows.dbo.row_20160817_140417_ctuql')->where('C1185', $identity_id)->select('id');
+                $user_table = DB::table('rows.dbo.row_20160822_094434_qkbtr')->where('C1191', $identity_id)->select('id');
 
                 if ($user_table->exists()) {
                     if (!DB::table('use_105.dbo.parentTwo105_id')->where('newcid', $pcreate_newcid)->exists()) {
@@ -64,9 +64,9 @@ return array(
                 ->first();
             $name = '';
             $school = '';
-            $user = DB::table('rows.dbo.row_20160817_140417_ctuql')
-                ->where('C1185', $id->stdidnumber)
-                ->select('C1186','C1187')
+            $user = DB::table('rows.dbo.row_20160822_094434_qkbtr')
+                ->where('C1191', $id->stdidnumber)
+                ->select('C1186','C1190')
                 ->first();
             if (!empty($user->C1186)) {
                 $school = DB::table('plat_public.dbo.secondary_school')
@@ -75,8 +75,8 @@ return array(
                         ->select('name')
                         ->first();
             }
-            if (!empty($user->C1187)) {
-                $name = $user->C1187;
+            if (!empty($user->C1190)) {
+                $name = $user->C1190;
             }
             return array(
                 'name' => $name,
