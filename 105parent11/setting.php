@@ -137,6 +137,21 @@ return array(
                         ->first();
                 return Response::json($care);
 
+            case 'name':
+                $id = DB::table('use_105.dbo.parentTwo105_id')
+                    ->where('newcid', Answerer::newcid())
+                    ->select('stdidnumber')
+                    ->first();
+                $name = '';
+                $user = DB::table('rows.dbo.row_20160822_094434_qkbtr')
+                    ->where('C1191', $id->stdidnumber)
+                    ->select('C1186','C1190')
+                    ->first();
+                if (!empty($user->C1190)) {
+                    $name = $user->C1190;
+                }
+                return Response::json($name);
+
             default :
             break;
         }
