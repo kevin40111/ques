@@ -66,7 +66,7 @@ return array(
         switch ($data) {
             case 'school':
                 $school_query = DB::table('plat_public.dbo.university_school');
-                $school = $school_query->where('edu','True')->select('id', 'name')->orderBy('type')->get();
+                $school = $school_query->where('edu','True')->where('year','103')->select('id', 'name')->orderBy('type')->get();
                 return Response::json($school);
                 break;
             default:
