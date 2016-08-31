@@ -27,7 +27,7 @@ return array(
             try {
                 $token = strtolower(Input::get('token'));
                 if (DB::table('rows.dbo.row_20151120_115629_t0ixj_map')->where('newcid', $token)->exists()) {
-                    Answerer::login('newteacher104', $token);
+                    Ques\Answerer::login('newteacher104', $token);
                 } else {
                     $validator->getMessageBag()->add('token','網址連結有誤');
                 } 
@@ -50,7 +50,7 @@ return array(
             $name = '';
             $user = DB::table('rows.dbo.row_20151120_115629_t0ixj AS userinfo')
                 ->leftJoin('rows.dbo.row_20151120_115629_t0ixj_map AS map', 'userinfo.C95', '=', 'map.stdidnumber')
-                ->where('map.newcid', Answerer::newcid())
+                ->where('map.newcid', Ques\Answerer::newcid())
                 ->select('userinfo.C87')
                 ->first();
             if (!empty($user->C87)) {

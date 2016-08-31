@@ -27,7 +27,7 @@ return array(
             try {
                 if (DB::table('rows.dbo.row_20160121_182751_kljan_token')->where('token', Input::get('token'))->exists()) {
                     $user = DB::table('rows.dbo.row_20160121_182751_kljan_token')->where('token', Input::get('token'))->first();
-                    Answerer::login('teacheradmin104', $user->token);
+                    Ques\Answerer::login('teacheradmin104', $user->token);
                 } else {
                     $validator->getMessageBag()->add('key','網址連結有誤');
                 } 
@@ -47,7 +47,7 @@ return array(
         $stdschoolsys = [1 => '一般日間', 2 => '進修部、在職專班'];
         
         if ($page=='3') {
-            $user = DB::table('rows.dbo.row_20160121_182751_kljan_token AS userinfo')->where('userinfo.token', Answerer::newcid())
+            $user = DB::table('rows.dbo.row_20160121_182751_kljan_token AS userinfo')->where('userinfo.token', Ques\Answerer::newcid())
                 ->leftJoin('plat_public.dbo.university_school AS school', 'userinfo.school_id', '=', 'school.id')
                 ->orderBy('school.year', 'desc')
                 ->select('school.name AS schoolname', 'userinfo.name')

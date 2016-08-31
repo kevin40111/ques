@@ -27,7 +27,7 @@ return array(
             try {
                 if (DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->exists()) {
                     $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')->where('token', Input::get('token'))->first();
-                    Answerer::login('teacherpeer104', $user->token);
+                    Ques\Answerer::login('teacherpeer104', $user->token);
                 } else {
                     $validator->getMessageBag()->add('token','網址連結有誤');
                 } 
@@ -40,7 +40,7 @@ return array(
 
     'update' => function($page, $controller){
         $peer = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')
-            ->where('token', Answerer::newcid())
+            ->where('token', Ques\Answerer::newcid())
             ->select('token','school_id','peer_name')
             ->first();
 
@@ -71,7 +71,7 @@ return array(
         $user = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer AS tokenInfo')
             ->leftJoin('rows.dbo.row_20151120_115629_t0ixj AS teacherInfo','tokenInfo.stdidnumber','=','teacherInfo.C95')
             ->select('tokenInfo.peer_name','teacherInfo.C87')
-            ->where('tokenInfo.token', Answerer::newcid())
+            ->where('tokenInfo.token', Ques\Answerer::newcid())
             ->first();
 
         if ($page=='3') {
@@ -89,7 +89,7 @@ return array(
     'hide' => function($page){
         if ($page == 3) {
             $peer = DB::table('rows.dbo.row_20151120_115629_t0ixj_peer')
-                ->where('token', Answerer::newcid())
+                ->where('token', Ques\Answerer::newcid())
                 ->select('token','school_id','peer_name')
                 ->first();
 
