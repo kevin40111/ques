@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 return array(
     'debug' => true,
     'forceClose' => 0,
@@ -48,7 +48,7 @@ return array(
         
         if ($page=='3') {
             $user = DB::table('rows.dbo.row_20160121_182751_kljan_token AS userinfo')->where('userinfo.token', Ques\Answerer::newcid())
-                ->leftJoin('plat_public.dbo.university_school AS school', 'userinfo.school_id', '=', 'school.id')
+                ->leftJoin('plat.dbo.organization_details AS school', 'userinfo.school_id', '=', 'school.id')
                 ->orderBy('school.year', 'desc')
                 ->select('school.name AS schoolname', 'userinfo.name')
                 ->first();
@@ -65,8 +65,28 @@ return array(
     'publicData' => function($data){
         switch ($data) {
             case 'school':
-                $school_query = DB::table('plat_public.dbo.university_school');
-                $school = $school_query->where('edu','True')->where('year','103')->select('id', 'name')->orderBy('type')->get();
+                $school_query = DB::table('plat.dbo.organization_details');
+                $school = $school_query->where('grade','0')
+                    ->where('year','<=','103')
+                    ->where('syscode','1')
+                    ->select('id', 'name')
+                    ->orderBy('type')
+                    ->orderBy('year')
+                    ->get();
+
+                /*$school = DB::table(DB::table('plat.dbo.organization_details'))
+                    ->mergeBindings($sub)
+                    ->whereIn(DB::raw("({$sub->toSql()}) as sub"))
+                    ->get();*/
+
+                /*$school = $school_query->where('grade','0')
+                    ->where('year','<=','103')
+                    ->where('syscode','1')
+                    ->select('id', 'name')
+                    ->groupBy('organization_id')
+                    ->orderBy('year')
+                    ->orderBy('type')
+                    ->get();*/
                 return Response::json($school);
                 break;
             default:

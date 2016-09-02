@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 return array(
     'debug' => true,
     'forceClose' => 0,
@@ -69,8 +69,13 @@ return array(
     'publicData' => function($data){
         switch ($data) {
             case 'school':
-                $school_query = DB::table('plat_public.dbo.university_school');
-                $school = $school_query->where('edu','True')->select('id', 'name')->orderBy('type')->get();
+                $school_query = DB::table('plat.dbo.organization_details');
+                $school = $school_query->where('year','<=','103')
+                    ->where('grade','0')
+                    ->where('syscode','1')
+                    ->select('id', 'name')
+                    ->orderBy('type')
+                    ->get();
                 return Response::json($school);
                 break;
             case 'disableQues':     
