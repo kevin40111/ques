@@ -43,10 +43,7 @@ $(function () {
 
     var set_school = function (input,selected,option) {
        ;
-        var school = selected.text();
-        if (selected.val() == '-9') {
-            school = '';
-        }
+        var school = selected.val();
         $(input).val(school);
         $(input).trigger("change");
 
