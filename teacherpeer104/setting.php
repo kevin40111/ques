@@ -5,7 +5,7 @@ return array(
     'buildQuestion' => 'v10',
     'buildQuestionEvent' => 'buildQuestionEvent__v1.9.3.utf8.php',
     'logInput' => true,
-    'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/teacherpeer104',
+    'logInputDir' => storage_path().'/ques/logs/teacherpeer104',
 
     'auth' => array(
         'loginView' => array(
