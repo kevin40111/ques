@@ -4,7 +4,7 @@ $("#QID_27jo3439").hover(function() {
     },hideTooltip);
 
 function hideTooltip(){
-    $("#tooltip").fadeOut().remove();
+    $("#tooltip").remove();
 }
 
 $("#QID_gk8epwfh").hover(function() {
@@ -25,7 +25,7 @@ $("#QID_gk8epwfh").hover(function() {
     },hideTooltip2);
 
 function hideTooltip2(){
-    $("#tooltip2").fadeOut().remove();
+    $("#tooltip2").remove();
 }
 
 $('input[name=p3s14t3]').change(function() {
