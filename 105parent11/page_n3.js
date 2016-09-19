@@ -1,10 +1,10 @@
 $("#QID_27jo3439").hover(function() {
-    var tooltip = $("<div id='tooltip' class='tooltip2'>說明：本題目是為了確認填答者身分是否正確，以確保調查結果的正確性，您及小孩的身分將匿名處理，不會被辨識，敬請放心協助確認。</div>");
+    var tooltip = $("<div name='tooltip' class='tooltip'>說明：本題目是為了確認填答者身分是否正確，以確保調查結果的正確性，您及小孩的身分將匿名處理，不會被辨識，敬請放心協助確認。</div>");
     tooltip.appendTo($("#QID_27jo3439"));
     },hideTooltip);
 
 function hideTooltip(){
-    $("#tooltip").remove();
+    $('[name=tooltip]').remove();
 }
 
 $("#QID_gk8epwfh").hover(function() {
@@ -12,20 +12,20 @@ $("#QID_gk8epwfh").hover(function() {
         $.getJSON('public/name', {
         }, function(data) {
             var name = data;
-            var tooltip2 = $("<div id='tooltip2' class='tooltip'>說明：本份問卷都請根據"+name+"的情況填答。請由學生之家長或監護人親自填答，勿由他人代答。以維持資料正確性。</div>");
-            tooltip2.appendTo($("#QID_gk8epwfh"));
+            var tooltip2 = $("<div name='tooltip2' class='tooltip'>說明：本份問卷都請根據"+name+"的情況填答。請儘量由學生之家長或監護人親自填答，勿由他人代答。以維持資料正確性。</div>");
+            tooltip2.insertBefore($("#QID_gk8epwfh"));
         }).error(function(e){
             console.log(e);
         });
     }else{
         var name = $('Input[name=p3s14t3]').val();
-        var tooltip2 = $("<div id='tooltip2' class='tooltip'>說明：本份問卷都請根據"+name+"的情況填答。請由學生之家長或監護人親自填答，勿由他人代答。以維持資料正確性。</div>");
-        tooltip2.appendTo($("#QID_gk8epwfh"));
+        var tooltip2 = $("<div name='tooltip2' class='tooltip'>說明：本份問卷都請根據"+name+"的情況填答。請儘量由學生之家長或監護人親自填答，勿由他人代答。以維持資料正確性。</div>");
+        tooltip2.insertBefore($("#QID_gk8epwfh"));
     }
     },hideTooltip2);
 
 function hideTooltip2(){
-    $("#tooltip2").remove();
+    $('[name=tooltip2]').remove();
 }
 
 $('input[name=p3s14t3]').change(function() {
