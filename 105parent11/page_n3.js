@@ -1,11 +1,11 @@
-var name1 = "";
+var name_in_db = "";
+var replaced_name = '';
 $.getJSON('public/name', {
 }, function(data) {
-    name1 = data;
+    name_in_db = data;
 }).error(function(e){
     console.log(e);
 });
-
 
 $("#QID_27jo3439").hover(function() {
     var tooltip = $("<div name='tooltip' class='tooltip'>說明：本題目是為了確認填答者身分是否正確，以確保調查結果的正確性，您及小孩的身分將匿名處理，不會被辨識，敬請放心協助確認。</div>");
@@ -18,10 +18,13 @@ function hideTooltip(){
 
 $("#QID_gk8epwfh").hover(function() {
     if ($('input[name=p3s14t3]').val() != '') {
-        var name1 = $('Input[name=p3s14t3]').val();
+        replaced_name = $('Input[name=p3s14t3]').val();
+    }else{
+        replaced_name = name_in_db;
     }
-    var tooltip2 = $("<div name='tooltip2' class='tooltip'>說明：本份問卷都請根據"+name1+"的情況填答。請儘量由學生之家長或監護人親自填答，勿由他人代答。以維持資料正確性。</div>");
+    var tooltip2 = $("<div name='tooltip2' class='tooltip'>說明：本份問卷都請根據"+replaced_name+"的情況填答。請儘量由學生之家長或監護人親自填答，勿由他人代答。以維持資料正確性。</div>");
     $("#QID_gk8epwfh").prepend(tooltip2);
+    $("#QID_gk8epwfh").children('h4').html('<strong>1-1.</strong> 您是'+replaced_name+'的');
     },hideTooltip2);
 
 function hideTooltip2(){
@@ -29,8 +32,12 @@ function hideTooltip2(){
 }
 
 $('input[name=p3s14t3]').change(function() {
-    var name1 = $('Input[name=p3s14t3]').val();
-    $("#QID_gk8epwfh").children('h4').html('<strong>1-1.</strong> 您是'+name1+'的');
+    if ($('input[name=p3s14t3]').val() != '') {
+        replaced_name = $('Input[name=p3s14t3]').val();
+    }else{
+        replaced_name = name_in_db;
+    }
+    $("#QID_gk8epwfh").children('h4').html('<strong>1-1.</strong> 您是'+replaced_name+'的');
 });
 
 $('select[name=p3s5]').change(function() {
