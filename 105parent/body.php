@@ -8,8 +8,8 @@
 
 </div>
 
-<div class="eight wide field">
-    <label>請輸入您的身份證字號：</label>
+<div class="nine wide field">
+    <label>請輸入您高二專二孩子身份證字號：</label>
     <input type="text" name="identity_id" placeholder="身分證字號" />
 </div>
 
