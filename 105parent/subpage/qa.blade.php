@@ -1,4 +1,4 @@
-﻿@include('ques.data.105parent11.head')
+﻿@include('ques.data.105parent.head')
 <div class="ui top attached segment" style="width:800px;margin:0 auto">
 
     <div class="ui basic segment">
@@ -168,5 +168,5 @@
         </div>
     </div>
 
-    @include('ques.data.105parent11.footer')
+    @include('ques.data.105parent.footer')
 </div>

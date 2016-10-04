@@ -5,15 +5,15 @@ return array(
     'buildQuestion' => 'v10',
     'buildQuestionEvent' => 'buildQuestionEvent__v1.9.3.utf8.php',
     'logInput' => true,
-    'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/105parent11',
+    'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/105parent',
 
     'auth' => array(
         'loginView' => array(
-            'head' => 'ques.data.105parent11.head',
-            'body' => 'ques.data.105parent11.body',
-            'footer' => 'ques.data.105parent11.footer'
+            'head' => 'ques.data.105parent.head',
+            'body' => 'ques.data.105parent.body',
+            'footer' => 'ques.data.105parent.footer'
         ),
-        'endView' => 'ques.data.105parent11.end',
+        'endView' => 'ques.data.105parent.end',
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
@@ -41,7 +41,7 @@ return array(
                     if (!DB::table('use_105.dbo.parentTwo105_id')->where('newcid', $pcreate_newcid)->exists()) {
                         DB::table('use_105.dbo.parentTwo105_id')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
                     }
-                    Answerer::login('105parent11', $pcreate_newcid);
+                    Answerer::login('105parent', $pcreate_newcid);
                 }
                 else
                 {

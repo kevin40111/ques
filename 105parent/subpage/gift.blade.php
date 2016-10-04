@@ -4,7 +4,7 @@
 
     <div class="ui centered card">
         <div class="image">
-            <img src="/resource/105parent11/images/g03.jpg">
+            <img src="/resource/105parent/images/g03.jpg">
         </div>
         <div class="content center aligned">
             <a class="header">頭獎 超商禮券&nbsp;2000元&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5名</a>
@@ -19,5 +19,5 @@
 
     <p>註：圖片僅供參考，以調查結束後實際購得之等值物為準。贈品型號及外形依現場實物為主，主辦單位有修改與更正的權利。</p>
 
-    @include('ques.data.105parent11.footer')
+    @include('ques.data.105parent.footer')
 </div>
