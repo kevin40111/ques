@@ -19,5 +19,5 @@
 
     <p>註：圖片僅供參考，以調查結束後實際購得之等值物為準。贈品型號及外形依現場實物為主，主辦單位有修改與更正的權利。</p>
 
-    @include('ques.data.105parent_shortv.footer')
+    @include('ques.data.105parent_short.footer')
 </div>
