@@ -40,9 +40,27 @@ return array(
                 if ($user_table->exists()) {
                     if (!DB::table('use_105.dbo.parentTwo105_id')->where('newcid', $pcreate_newcid)->exists()) {
                         DB::table('use_105.dbo.parentTwo105_id')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
+                        Answerer::login('105parent_short', $pcreate_newcid);
+                        $controller->skip_page(array(6,8,9,14));
                     }
-                    Answerer::login('105parent_short', $pcreate_newcid);
-                    $controller->skip_page(array(6,8,9,14));
+                    else
+                    {
+                        $survey_type = DB::table('use_105.dbo.parentTwo105_pstat')->where('newcid', $pcreate_newcid)->select('survey_type')->first();
+                        $done_pages = DB::table('use_105.dbo.parentTwo105_pstat')->where('newcid', $pcreate_newcid)->select('page')->first();
+                        if ($survey_type->survey_type == 1){
+                            if ($done_pages->page == 15){
+                                $validator->getMessageBag()->add('identity_id','您已填寫完網路問卷');
+                            }
+                            else{
+                                $validator->getMessageBag()->add('identity_id','您已填寫過網路問卷請繼續完成');
+                            }
+                        }
+                        else
+                        {
+                            Answerer::login('105parent_short', $pcreate_newcid);
+                        }
+                    }
+                   
                 }
                 else
                 {
@@ -58,6 +76,10 @@ return array(
     'blade' => function($page, &$init){
         if( is_null(Answerer::newcid()) )
             return false;
+        if( !is_null(Answerer::newcid()) ){
+            DB::table('use_105.dbo.parentTwo105_pstat')->where('newcid', Answerer::newcid())->update(['survey_type' => 2]);
+        }
+       
         if ($page=='3') {
             $id = DB::table('use_105.dbo.parentTwo105_id')
                 ->where('newcid', Answerer::newcid())
