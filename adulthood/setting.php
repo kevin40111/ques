@@ -1,7 +1,8 @@
 <?php
 return array(
-    'logInput' => true,
+    'logInput' => false,
     'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/adulthood',
+    'skip' => true,
 
     'auth' => array(
         'loginView' => array(
@@ -29,7 +30,11 @@ return array(
             } else {
                 $amount = DB::table('rows.dbo.row_20161103_151909_t3oxc')->where('id', Input::get('department_id'))->select('C1365 AS sch_code', 'C1367 AS dep_code', 'C1369 AS value')->first();
 
-                $count = DB::table($controller->doc->database . '.dbo.' . $controller->doc->table)->where('department_id', Input::get('department_id'))->count();
+                $count = DB::table($controller->doc->database . '.dbo.' . $controller->doc->table . ' AS i')
+                    ->leftJoin($controller->doc->database . '.dbo.' . 'adulthood_page1 AS p1', 'i.id', '=', 'p1.newcid')
+                    ->where('i.department_id', Input::get('department_id'))
+                    ->where('p1.p1q1', '1')
+                    ->count();
 
                 if ($count >= $amount->value) {
                     $validator->getMessageBag()->add('department_id', '您選擇的系所已經調查完畢');
@@ -49,6 +54,9 @@ return array(
     ),
 
     'update' => function($page, $controller) {
+
+        if(Input::get('p1q1') == '2')
+            $controller->skip_page([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]);
 
     },
 
