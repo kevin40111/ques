@@ -16,11 +16,11 @@ return array(
         'primaryID' => 'newcid',
         'input_rull' => array(
             'department_id' => 'required',
-            'id4' => ['digits_between:4,9'],
+            'id4' => 'digits:4',
         ),
         'input_rull_message' => array(
             'department_id.required' =>'科系必填',
-            'id4.digits_between' => '身分證末四碼必須為數字，長度大於3、小於10',
+            'id4.digits' => '身分證末四碼必須為4碼數字',
         ),
         'checker' => function(&$validator, $controller) {
             if (Input::has('id4')) {
