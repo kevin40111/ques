@@ -2,7 +2,7 @@
 return array(
     'logInput' => false,
     'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/adulthood',
-    'skip' => true,
+    'skip' => false,
 
     'auth' => array(
         'loginView' => array(
@@ -15,10 +15,12 @@ return array(
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'department_id' => 'required'
+            'department_id' => 'required',
+            'id4' => ['digits_between:4,9'],
         ),
         'input_rull_message' => array(
             'department_id.required' =>'科系必填',
+            'id4.digits_between' => '身分證末四碼必須為數字，長度大於3、小於10',
         ),
         'checker' => function(&$validator, $controller) {
             if (Input::has('id4')) {
@@ -56,7 +58,7 @@ return array(
     'update' => function($page, $controller) {
 
         if(Input::get('p1q1') == '2')
-            $controller->skip_page([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]);
+            $controller->skip_page([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
 
     },
 
