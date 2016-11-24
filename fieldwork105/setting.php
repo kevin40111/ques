@@ -4,8 +4,8 @@ return array(
     'forceClose' => 0,
     'buildQuestion' => 'v10',
     'buildQuestionEvent' => 'buildQuestionEvent__v1.9.3.utf8.php',
-    'logInput' => false,
-    'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/fieldwork105',
+    'logInput' => true,
+    'logInputDir' => storage_path().'/ques/logs/fieldwork105',
 
     'auth' => array(
         'loginView' => array(
@@ -36,7 +36,7 @@ return array(
                 } else {
                     $identity_id = strtoupper(Input::get('identity_id'));
                     $pcreate_newcid = createnewcid($identity_id);
-                    $user_table = DB::table('rows.dbo.row_20160822_094434_qkbtr')->where('C1191', $identity_id)->select('id');
+                    $user_table = DB::table('rows.dbo.row_20161003_094948_fuaiq')->where('C1258', $identity_id)->select('id');
 
                     if ($user_table->exists()) {
                         if (!DB::table('tted_105.dbo.fieldwork105_id')->where('newcid', $pcreate_newcid)->exists()) {
@@ -69,23 +69,28 @@ return array(
     },
 
     'blade' => function($page, &$init) {
-        $stdschoolstage = [1 => '大學', 2 => '碩士', 3 => '博士'];
-        $stdschoolsys = [1 => '一般日間', 2 => '進修部、在職專班'];
-
         if ($page == '1') {
-            /*$user = DB::table('rows_import.dbo.row_20150925_121200_hl2sl AS userinfo')->where('userinfo.id', Ques\Answerer::newcid())
-                ->leftJoin('ques_admin.dbo.pub_school_u AS school', 'userinfo.C1', '=', 'school.id')
-                ->orderBy('school.year', 'desc')
-                ->select('school.name AS schoolname', 'userinfo.C5', 'userinfo.C6', 'userinfo.C7', 'userinfo.C8')
+            $user = DB::table('rows.dbo.row_20161003_094948_fuaiq AS userinfo')
+                ->leftJoin('tted_105.dbo.fieldwork105_id AS map', 'userinfo.C1258', '=', 'map.stdidnumber')
+                ->leftJoin('plat.dbo.organization_details AS organization', 'userinfo.C1250', '=', 'organization.id')
+                ->where('map.newcid', Ques\Answerer::newcid())
+                ->select('organization.name AS schoolname')
                 ->first();
-
             return array(
-                'udepcode'       => '',
-                'name'           => $user->C8,
-                'stdschoolstage' => $stdschoolstage[$user->C6],
-                'stdschoolsys'   => $stdschoolsys[$user->C7],
-                'school'         => $user->schoolname . $user->C5,
-            );*/
+                'school' => $user->schoolname,
+            );
+        }
+
+        if ($page == '4') {
+            $stage = ['1' => '幼兒園(含學前特教)', '2' => '國民小學(含國小特教)', '3' => '國民中學(含國中特教)', '4' => '高中職(含高中職特教)'];
+            $user = DB::table('rows.dbo.row_20161003_094948_fuaiq AS userinfo')
+                ->leftJoin('tted_105.dbo.fieldwork105_id AS map', 'userinfo.C1258', '=', 'map.stdidnumber')
+                ->where('map.newcid', Ques\Answerer::newcid())
+                ->select('userinfo.C1273 AS stage')
+                ->first();
+            return array(
+                'stage' => $stage[$user->stage],
+            );
         }
     },
 
@@ -96,20 +101,19 @@ return array(
     'publicData' => function($data){
         switch ($data) {
             case 'area':
-                return DB::table('plat_public.dbo.list_area')->where('city', Input::get('city'))->lists('cname', 'area');
+                return DB::table('rows.dbo.row_20161121_145744_f0q1p')->where('C1301', Input::get('city'))->lists('C1304', 'C1303');
                 break;
-
             case 'school':
                 $city   = Input::get('city', '');
                 $area   = Input::get('area', '');
                 $ps     = Input::get('ps', '');
                 $stage  = Input::get('stage', '');
                 $school_query = DB::table('rows.dbo.row_20161121_145744_f0q1p')->distinct();
-                $city!='' && $school_query->where('cityid', $city);
-                $area!='' && $school_query->where('areaid', $area);
-                $ps!='' && $school_query->where('psid', $ps);
-                $stage!='' && $school_query->where('stageid', $stage);
-                $school = $school_query->select('id', 'schoolid', 'school')->orderBy('id')->lists('school', 'schoolid');
+                $city!='' && $school_query->where('C1301', $city);
+                $area!='' && $school_query->where('C1303', $area);
+                $ps!='' && $school_query->where('C1307', $ps);
+                $stage!='' && $school_query->where('C1305', $stage);
+                $school = $school_query->select('C1309', 'C1310')->lists('C1310', 'C1309');
                 return Response::json($school);
                 break;
             default:
