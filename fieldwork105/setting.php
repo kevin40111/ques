@@ -17,38 +17,35 @@ return array(
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'identity_id' => 'required_without:passport_id|alpha_num|size:10',
-            'passport_id' => 'required_without:identity_id|alpha_num|max:15'
+            // 'identity_id' => 'required_without:passport_id|alpha_num|size:10',
+            // 'passport_id' => 'required_without:identity_id|alpha_num|max:15'
         ),
         'input_rull_message' => array(
-            'identity_id.required_without' =>'身分證字號必填',
-            'identity_id.alpha_num' =>'身分證字號格式錯誤',
-            'identity_id.size' =>'身分證字號必需是10個字',
+            // 'identity_id.required_without' =>'身分證字號必填',
+            // 'identity_id.alpha_num' =>'身分證字號格式錯誤',
+            // 'identity_id.size' =>'身分證字號必需是10個字',
 
-            'passport_id.required_without' =>'居留證、護照號碼必填',
-            'passport_id.alpha_num' =>'居留證、護照號碼格式錯誤',
-            'passport_id.max' =>'居留證、護照號碼不能超過15個字',
+            // 'passport_id.required_without' =>'居留證、護照號碼必填',
+            // 'passport_id.alpha_num' =>'居留證、護照號碼格式錯誤',
+            // 'passport_id.max' =>'居留證、護照號碼不能超過15個字',
         ),
         'checker' => function(&$validator, $controller) {
             if (Input::has('identity_id')) {
-                if (!check_id_number(Input::get('identity_id'))) {
-                    $validator->getMessageBag()->add('identity_id','身分證字號或居留證、護照號碼錯誤');
-                } else {
-                    $identity_id = strtoupper(Input::get('identity_id'));
-                    $pcreate_newcid = createnewcid($identity_id);
-                    $user_table = DB::table('rows.dbo.row_20161003_094948_fuaiq')->where('C1258', $identity_id)->select('id');
-
-                    if ($user_table->exists()) {
-                        if (!DB::table('tted_105.dbo.fieldwork105_id')->where('newcid', $pcreate_newcid)->exists()) {
-                            DB::table('tted_105.dbo.fieldwork105_id')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
-                        }
-                        Ques\Answerer::login('fieldwork105', $pcreate_newcid);
+                $identity_id = strtoupper(Input::get('identity_id'));
+                $pcreate_newcid = !check_id_number($identity_id) ? md5($identity_id) : createnewcid($identity_id);
+                $user_table = DB::table('rows.dbo.row_20161003_094948_fuaiq')->where('C1258', $identity_id)->select('id');
+                if ($user_table->exists()) {
+                    if (!DB::table('tted_105.dbo.fieldwork105_id')->where('newcid', $pcreate_newcid)->exists()) {
+                        DB::table('tted_105.dbo.fieldwork105_id')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
                     }
-                    else
-                    {
-                        $validator->getMessageBag()->add('identity_id','您不是調查對象');
-                    }
+                    Ques\Answerer::login('fieldwork105', $pcreate_newcid);
                 }
+                else
+                {
+                    $validator->getMessageBag()->add('identity_id','身分證字號或居留證、護照號碼錯誤');
+                }
+            } else {
+                $validator->getMessageBag()->add('identity_id','請輸入身分證字號或居留證、護照號碼');
             }
         }
     ),
@@ -82,11 +79,11 @@ return array(
         }
 
         if ($page == '4') {
-            $stage = ['1' => '幼兒園(含學前特教)', '2' => '國民小學(含國小特教)', '3' => '國民中學(含國中特教)', '4' => '高中職(含高中職特教)'];
+            $stage = ['1' => '大學', '2' => '碩士', '3' => '博士'];
             $user = DB::table('rows.dbo.row_20161003_094948_fuaiq AS userinfo')
                 ->leftJoin('tted_105.dbo.fieldwork105_id AS map', 'userinfo.C1258', '=', 'map.stdidnumber')
                 ->where('map.newcid', Ques\Answerer::newcid())
-                ->select('userinfo.C1273 AS stage')
+                ->select('userinfo.C1254 AS stage')
                 ->first();
             return array(
                 'stage' => $stage[$user->stage],
