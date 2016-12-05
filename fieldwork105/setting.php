@@ -73,20 +73,22 @@ return array(
                 ->where('map.newcid', Ques\Answerer::newcid())
                 ->select('organization.name AS schoolname')
                 ->first();
+            $schoolname = !empty($user->schoolname) ? $user->schoolname : '';
             return array(
-                'school' => $user->schoolname,
+                'school' => $schoolname,
             );
         }
 
         if ($page == '4') {
-            $stage = ['1' => '大學', '2' => '碩士', '3' => '博士'];
+            $stage = ['0' => '', '1' => '大學', '2' => '碩士', '3' => '博士'];
             $user = DB::table('rows.dbo.row_20161003_094948_fuaiq AS userinfo')
                 ->leftJoin('tted_105.dbo.fieldwork105_id AS map', 'userinfo.C1258', '=', 'map.stdidnumber')
                 ->where('map.newcid', Ques\Answerer::newcid())
                 ->select('userinfo.C1254 AS stage')
                 ->first();
+            $stage_id = !empty($user->stage) ? $user->stage : '0';
             return array(
-                'stage' => $stage[$user->stage],
+                'stage' => $stage[$stage_id],
             );
         }
     },
