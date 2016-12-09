@@ -1,1 +1,1 @@
-<!--<img ng-src="/resource/<?=$doc->dir?>/000第1頁.jpg" class="md-card-image" alt="">-->
+<img ng-src="/resource/<?=$doc->dir?>/banner1.jpg" class="md-card-image" alt="">
