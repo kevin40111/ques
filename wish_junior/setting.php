@@ -62,7 +62,7 @@ return array(
                 break;
 
             case 'areas':
-                $areas = DB::table('plat_public.dbo.list_area')->where('city', Input::get('city_code'))->select('area AS code', 'cname AS name')->orderBy('area')->get();
+                $areas = DB::table('plat_public.dbo.list_area_for_wish_junior')->where('city', Input::get('city_code'))->select('area AS code', 'cname AS name')->orderBy('area')->get();
 
                 return ['areas' => $areas];
                 break;

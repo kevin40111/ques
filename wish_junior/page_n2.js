@@ -41,31 +41,45 @@ $('select[name=p2s8],select[name=p2s7],select[name=p2s6]').change(function() {
     });
 });
 
+$('select[name=p2s5],select[name=p2s4],select[name=p2s3]').change(function() {
+    var values = $('select[name=p2s5],select[name=p2s4],select[name=p2s3]').not(this).map(function(index, select) {
+        return $(select).val();
+    }).get();
+
+    if (values.indexOf($(this).val()) > -1 && $(this).val() != -9) {
+        $(this).val(-9);
+        if ($(this).next('[name=error]').length == 0) {
+            $(this).after('<span name="error" style="color:red">請勿選擇相同的學校</span>');
+        }
+    } else {
+        $(this).next('[name=error]').remove();
+    }
+});
 
 /*
  * load categories
  */
 
-$("select[name=p2s15],select[name=p2s13],select[name=p2s11]").prop('disabled', true);
+$("select[name=p2s14],select[name=p2s12],select[name=p2s10]").prop('disabled', true);
 $.getJSON('public/categories', {}, function(data) {
-    $('select[name=p2s15]').children('option[value!=-9]').remove();
-    $('select[name=p2s13]').children('option[value!=-9]').remove();
-    $('select[name=p2s11]').children('option[value!=-9]').remove();
+    $('select[name=p2s14]').children('option[value!=-9]').remove();
+    $('select[name=p2s12]').children('option[value!=-9]').remove();
+    $('select[name=p2s10]').children('option[value!=-9]').remove();
     for (var i in data.categories) {
-        $('select[name=p2s15]').append('<option value="'+data.categories[i].code+'">'+data.categories[i].name+'</option>');
-        $('select[name=p2s13]').append('<option value="'+data.categories[i].code+'">'+data.categories[i].name+'</option>');
-        $('select[name=p2s11]').append('<option value="'+data.categories[i].code+'">'+data.categories[i].name+'</option>');
+        $('select[name=p2s14]').append('<option value="'+data.categories[i].code+'">'+data.categories[i].name+'</option>');
+        $('select[name=p2s12]').append('<option value="'+data.categories[i].code+'">'+data.categories[i].name+'</option>');
+        $('select[name=p2s10]').append('<option value="'+data.categories[i].code+'">'+data.categories[i].name+'</option>');
     }
     if (data.categories.length != 0) {
-        $("select[name=p2s15],select[name=p2s13],select[name=p2s11]").prop('disabled', false);
+        $("select[name=p2s14],select[name=p2s12],select[name=p2s10]").prop('disabled', false);
     }
 }).error(function(e){
     console.log(e);
 });
 
-var categoriesSets = {p2s15: 'p2s14', p2s13: 'p2s12', p2s11: 'p2s10'};
+var categoriesSets = {p2s14: 'p2s13', p2s12: 'p2s11', p2s10: 'p2s9'};
 
-$('select[name=p2s15],select[name=p2s13],select[name=p2s11]').change(function() {
+$('select[name=p2s14],select[name=p2s12],select[name=p2s10]').change(function() {
     var toElement = $('select[name='+categoriesSets[this.name]+']');
     toElement.prop('disabled', true);
     $.getJSON('public/departments', {category: this.value}, function(data) {
@@ -81,3 +95,17 @@ $('select[name=p2s15],select[name=p2s13],select[name=p2s11]').change(function() 
     });
 });
 
+$('select[name=p2s13],select[name=p2s11],select[name=p2s9]').change(function() {
+    var values = $('select[name=p2s13],select[name=p2s11],select[name=p2s9]').not(this).map(function(index, select) {
+        return $(select).val();
+    }).get();
+
+    if (values.indexOf($(this).val()) > -1 && $(this).val() != -9) {
+        $(this).val(-9);
+        if ($(this).next('[name=error]').length == 0) {
+            $(this).after('<span name="error" style="color:red">請勿選擇相同的科別</span>');
+        }
+    } else {
+        $(this).next('[name=error]').remove();
+    }
+});
