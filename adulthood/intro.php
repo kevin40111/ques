@@ -36,6 +36,7 @@ app.config(function ($compileProvider, $mdIconProvider, $mdThemingProvider, $loc
                 <md-card-title-text>
                 <span class="md-headline"><?=$doc->title?></span>
                 <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
+                <p><a target="_blank" href="/resource/adulthood/gift1.docx" style="font-size: 18px">第一波中獎名單</a></p>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
