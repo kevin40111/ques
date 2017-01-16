@@ -1,0 +1,1 @@
+<img ng-src="/resource/<?=$doc->dir?>/images/banner1.jpg" class="md-card-image" alt="">
