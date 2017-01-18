@@ -73,12 +73,8 @@ return array(
         if ($page == '14') {
             $hideContent = [];
             $page9 = DB::table('use_105.dbo.seniorTwo105_page9')->where('newcid', Ques\Answerer::newcid())->select('p9q2')->first();
-            $p9q2 = $page9->p9q2;
-            if ($p9q2 != '1') {
-                $hideContent[] = 'QID_ciy7qos3';
-            }
-            if ($p9q2 == '1') {
-                $hideContent[] = 'QID_wd38ojse';
+            if ($page9) {
+                $hideContent[] = $page9->p9q2 == '1' ? 'QID_wd38ojse' : 'QID_ciy7qos3';
             }
             return $hideContent;
         }
