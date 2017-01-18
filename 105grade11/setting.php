@@ -37,7 +37,29 @@ return array(
     ),
 
     'update' => function($page, $controller) {
+        if ($page=='3') {
+            $birth_year  = Input::get('p3q1') + 1911;
+            $birth_month = Input::get('p3q2');
 
+            $birth = Carbon\Carbon::createFromDate($birth_year, $birth_month, 1);
+
+            $months_84 = $birth->diffInMonths(Carbon\Carbon::createFromDate(1995, 8, 1), false);
+
+            if ($userinfo = DB::table('use_105.dbo.seniorTwo105_grade10')->where('newcid', Ques\Answerer::newcid())->select('newcid')->exists()) {
+                if ($months_84 > 0) {
+                    $pages = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
+                } else {
+                    $pages = array(21, 22, 23, 24, 25, 26);
+                }
+            } else {
+                if ($months_84 > 0) {
+                    $pages = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26);
+                } else {
+                    $pages = array(25, 26);
+                }
+            }
+            $controller->skip_page($pages);
+        }
     },
 
     'blade' => function($page, &$init) {
@@ -45,16 +67,24 @@ return array(
     },
 
     'hide' => function($page) {
+        if (is_null(Ques\Answerer::newcid()))
+            return false;
 
+        if ($page == '14') {
+            $hideContent = [];
+            $page9 = DB::table('use_105.dbo.seniorTwo105_page9')->where('newcid', Ques\Answerer::newcid())->select('p9q2')->first();
+            $p9q2 = $page9->p9q2;
+            if ($p9q2 != '1') {
+                $hideContent[] = 'QID_ciy7qos3';
+            }
+            if ($p9q2 == '1') {
+                $hideContent[] = 'QID_wd38ojse';
+            }
+            return $hideContent;
+        }
     },
 
     'publicData' => function($data) {
-        switch ($data) {
-            case 'citys':
-                $citys = DB::table('plat_public.dbo.lists')->select('code', 'name')->orderBy('sort')->get();
 
-                return ['citys' => $citys];
-                break;
-        }
     }
 );

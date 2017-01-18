@@ -26,7 +26,7 @@ app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN)
             if (data.errors) {
                 $scope.errors = data.errors;
             } else {
-               window.location = '105grade11/page';
+               window.location = '/105grade11/page';
             }
         }).error(function(e) {
             console.log(e);
