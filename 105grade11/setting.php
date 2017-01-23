@@ -47,13 +47,13 @@ return array(
 
             if ($userinfo = DB::table('use_105.dbo.seniorTwo105_grade10')->where('newcid', Ques\Answerer::newcid())->select('newcid')->exists()) {
                 if ($months_84 > 0) {
-                    $pages = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26);
+                    $pages = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24);
                 } else {
                     $pages = array(21, 22, 23, 24, 25, 26);
                 }
             } else {
                 if ($months_84 > 0) {
-                    $pages = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25, 26);
+                    $pages = array(4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);
                 } else {
                     $pages = array(25, 26);
                 }
