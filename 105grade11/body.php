@@ -4,9 +4,6 @@
         <label>請輸入您的身份證字號：</label>
         <input type="text" ng-model="identity_id" placeholder="身分證字號" />
     </div>
-    <div class="field">
-        本問卷建議採用Google Chrome瀏覽器進行填答！
-    </div>
     <div class="ui error message">
         <div class="header">資料錯誤</div>
         <div class="ui horizontal list">
@@ -14,6 +11,7 @@
         </div>
     </div>
     <md-button class="md-raised md-primary" ng-click="login()">登入</md-button>
+    <a target="_blank" href="/<?=$doc->id?>/report">問題回報</a>
 </from>
 
 <script>
