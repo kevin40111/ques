@@ -11,7 +11,8 @@
         </div>
     </div>
     <md-button class="md-raised md-primary" ng-click="login()">登入</md-button>
-    <a target="_blank" href="/<?=$doc->id?>/report">問題回報</a>
+    <a style="margin-left:10px" target="_blank" href="<?=$doc->dir?>/qa">Q&A</a>
+    <a style="margin-left:10px" target="_blank" href="<?=$doc->id?>/report">問題回報</a>
 </from>
 
 <script>
@@ -19,12 +20,12 @@ app.constant("CSRF_TOKEN", '<?=csrf_token()?>');
 app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN) {
 
     $scope.login = function() {
-        $http({method: 'POST', url: '105grade11/qlogin', data:{_token: CSRF_TOKEN, identity_id: $scope.identity_id}})
+        $http({method: 'POST', url: '<?=$doc->dir?>/qlogin', data:{_token: CSRF_TOKEN, identity_id: $scope.identity_id}})
         .success(function(data, status, headers, config) {
             if (data.errors) {
                 $scope.errors = data.errors;
             } else {
-               window.location = '/105grade11/page';
+               window.location = '<?=$doc->dir?>/page';
             }
         }).error(function(e) {
             console.log(e);
