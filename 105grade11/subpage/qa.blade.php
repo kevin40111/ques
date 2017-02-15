@@ -48,7 +48,7 @@
             <div class="item" id="q3">
                 <div class="content">
                     <a class="header">Q3.這項調查調查時程？</a>
-                    調查期間：106年02月26日至4月30日止
+                    調查期間：106年01月26日至4月30日止
                 </div>
             </div>
             <div class="item" id="q4">
