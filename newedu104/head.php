@@ -1,1 +1,1 @@
-<img class="ui centered image" src="/resource/fieldwork105/0.jpg">
+<img class="ui centered image" src="/resource/newedu104/0.jpg">
