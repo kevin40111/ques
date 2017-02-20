@@ -1,5 +1,12 @@
 $(function () {
 
+    $('#QID_hmvnr480 .flex-50 md-checkbox')[5].id = 'p3q4c5';
+    $('#QID_hmvnr480 .flex-50 md-checkbox')[7].id = 'p3q4c7';
+    $('#QID_hmvnr480 .flex-50 md-checkbox')[10].id = 'p3q4c10';
+    $('#p3q4c5').attr('style', 'width: 700px');
+    $('#p3q4c7').attr('style', 'width: 700px');
+    $('#p3q4c10').attr('style', 'width: 700px');
+
     var select_school_a = $('select[name=p3s5]');
     var select_school_b = $('select[name=p3s2]');
 
