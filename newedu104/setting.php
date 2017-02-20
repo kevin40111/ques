@@ -118,14 +118,26 @@ return array(
     'publicData' => function($data){
         switch ($data) {
             case 'school':
-                $school_query = DB::table('plat.dbo.organization_details');
-                $school = $school_query->where('grade','0')
-                    ->where('year','<=','104')
-                    ->where('syscode','1')
-                    ->select('id', 'name')
-                    ->orderBy('type')
-                    ->orderBy('year')
-                    ->get();
+                $value = Input::get('value');
+
+                $school_query = DB::table('rows.dbo.row_20170220_143621_9mkb9');
+                $school_query->where('C1425', '105');
+                if ($value == '1' || $value == '2') {
+                    $school_query->where('C1427', '1');
+                } else if ($value == '3' || $value == '4'){
+                    $school_query->where('C1427', '0');
+                }
+
+                if ($value == '1' || $value == '3'){
+                    $school_query->where('C1428', '0');
+                } else if ($value == '2' || $value == '4'){
+                    $school_query->where('C1428', '1');
+                }
+
+                $school = $school_query->select('C1424 AS id', 'C1426 AS name')
+                ->orderBy('C1427')
+                ->orderBy('C1425')
+                ->get();
                 return Response::json($school);
                 break;
             case 'class':
