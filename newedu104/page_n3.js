@@ -4,8 +4,8 @@ $(function () {
     var select_school_b = $('select[name=p3s2]');
 
     var load_school_a = function(value) {
+        select_school_a.prop('disabled', true);
         $.getJSON('public/school', {value: value}, function( data ) {
-            select_school_a.prop('disabled', true);
             select_school_a.children('option').not('[value=999997],[value=-9]').remove();
             for (var i in data) {
                var option = $('<option value="'+data[i].id+'">'+data[i].name+'</option>');
@@ -16,8 +16,8 @@ $(function () {
     }
 
     var load_school_b = function(value) {
+        select_school_b.prop('disabled', true);
         $.getJSON('public/school', {value: value}, function( data ) {
-            select_school_b.prop('disabled', true);
             select_school_b.children('option').not('[value=999997],[value=-9]').remove();
             for (var i in data) {
                var option = $('<option value="'+data[i].id+'">'+data[i].name+'</option>');
