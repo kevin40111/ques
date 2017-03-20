@@ -1,6 +1,6 @@
 <?php
 return array(
-    'logInput' => false,
+    'logInput' => true,
     'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/105grade11',
     'skip' => false,
 
