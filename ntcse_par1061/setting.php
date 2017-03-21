@@ -66,9 +66,40 @@ return array(
 					}
 					*/
 				}
-				elseif(Input::get('p2q3sc1','') =='3' || Input::get('p2q3sc1','') =='4')
+				elseif ((Input::get('p2q3sc1','') =='3' || Input::get('p2q3sc1','') =='4') && (Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4')) {
+					//if((Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4')){
+						//當第2頁的校長跟行政都填3.4分時，則隨機分配
+					$counts = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->select(DB::raw('COUNT(*) as cc'))->where('sch_id',  $user->sch_id)->whereIn('ques',array('1', '2'))->first();
+					if ($counts->cc <= 6){
+						$isShuntN = ($counts->cc % 2) + 1;
+					}else{
+						$types = DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+						->select(DB::raw('ques'))
+						->where('sch_id',  $user->sch_id)
+						->whereIn('ques',array('1', '2'))
+						->orderBy(DB::raw('COUNT(ques),ques'))
+						->groupBy(DB::raw('ques'))
+						->first();
+						$isShuntN = $types->ques;
+					}
+					switch($isShuntN){
+						case '1':
+							$controller->skip_page(array(4,5,6,7,8,9,10,11,12,13,15,16));
+							break;
+						case '2':
+							$controller->skip_page(array(3,4,6,7,8,9,10,11,12,13,15,16));
+							break;
+					}
+					//更新ques值為 $isShuntN
+					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+					->where('newcid', $user->newcid)
+					->update(array('ques' => $isShuntN));
+					//}
+				}
+				elseif((Input::get('p2q3sc1','') =='3' || Input::get('p2q3sc1','') =='4') && (Input::get('p2q3sc2','') =='1' || Input::get('p2q3sc2','') =='2'))
 				{	//ntcse105par_P2_q3sc1 填 3 或 4 者，優先填 1 卷
-					if (substr($user->sch_id,2,1)=='1'){
+					//if(Input::get('p2q3sc2','') =='1' || Input::get('p2q3sc2','') =='2'){
+						if (substr($user->sch_id,2,1)=='1'){
 						//私立
 						$controller->skip_page(array(5,6,7,8,9,10,11,12,13,15,16));//這裡有改
 					}else{
@@ -79,54 +110,24 @@ return array(
 					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
 					->where('newcid', $user->newcid)
 					->update(array('ques' => '1'));
-
+					//}
 				}
-				elseif(Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4')
+				elseif((Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4') && (Input::get('p2q3sc1','') =='1' || Input::get('p2q3sc1','') =='2'))
 				{	//ntcse105par_P2_q3sc1 填 3 或 4 者，優先填 2 卷
-					//!!!!這裡有改
-					if(substr($user->sch_id,2,1)=='1'){
+					//if(Input::get('p2q3sc1','') =='1' || Input::get('p2q3sc1','') =='2'){
+						if(substr($user->sch_id,2,1)=='1'){
 						//私立
 						$controller->skip_page(array(3,6,7,8,9,10,11,12,13,15,16));
 					}else{
 						//公立
 						$controller->skip_page(array(3,4,6,7,8,9,10,11,12,13,15,16));
 					}
-					//!!!!
+					
 					//更新ques值為 2
 					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
 					->where('newcid', $user->newcid)
 					->update(array('ques' => '2'));
-
-				}//!!!!!這裡有改!!!!!
-//有QQ
-				elseif ((Input::get('p2q3sc1','') =='3' || Input::get('p2q3sc1','') =='4') && (Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4')) {
-					//當第2頁的校長跟行政都填3.4分時，則隨機分配
-					$counts = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->select(DB::raw('COUNT(*) as cc'))->where('sch_id',  $user->sch_id)->whereIn('ques',array('1', '2'))->first();
-					if ($counts->cc <= 6){
-						$isShuntN = ($counts->cc % 2) + 1;
-					}else{
-						$types = DB::table('ntcse106_1.dbo.ntcse106par_pstat')
-						->select(DB::raw('ques'))
-						->where('sch_id',  $user->sch_id)
-						->whereIn('ques',array('1', '2'))
-						->orderBy(DB::raw('COUNT(ques),ques'))
-						->first();
-						$isShuntN = $types->ques;
-					}
-
-					switch($isShuntN){
-						case '1':
-							$controller->skip_page(array(4,5,6,7,8,9,10,11,12,13,15,16));
-						case '2':
-							$controller->skip_page(array(3,4,6,7,8,9,10,11,12,13,15,16));
-							break;
-					}
-
-					//更新ques值為 $isShuntN
-					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
-					->where('newcid', $user->newcid)
-					->update(array('ques' => $isShuntN));
-					//!!!!!
+					//}
 				}
 				else{
 					//其他四卷平均分配
@@ -143,9 +144,6 @@ return array(
 						->first();
 						$isShuntN = $types->ques;
 					}
-
-
-
 					switch($isShuntN){
 						case '3':
 							//第三份問卷還分成 A B 卷

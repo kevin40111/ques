@@ -6,7 +6,7 @@
         <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
     </div>
 
-    <div style="color:#0000FF">帳號與密碼預設皆為<br/>您孩子的身分證字號(第一個英文字大寫) 或是<br/>您孩子的自訂帳號密碼<br/>若無法登入，請與導師或貴校資訊組長聯繫</div>
+    <div style="color:#0000FF">帳號與密碼預設皆為<br/>您孩子的自訂帳號密碼<br/>若無法登入，請與導師或貴校資訊組長聯繫</div>
 
 
     <?php
