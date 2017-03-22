@@ -6,12 +6,12 @@ return array(
  	'skip' => false,
 	'auth' => array(
 		'loginView' => array(
-			'intro' => 'ques.data.ntcse_par1061.intro',
-			'head' => 'ques.data.ntcse_par1061.head',
-			'body' => 'ques.data.ntcse_par1061.body',
-			'footer' => 'ques.data.ntcse_par1061.footer'
+			'intro' => 'ques.data.ntcse_par.intro',
+			'head' => 'ques.data.ntcse_par.head',
+			'body' => 'ques.data.ntcse_par.body',
+			'footer' => 'ques.data.ntcse_par.footer'
 		),
-		'endView' => 'ques.data.ntcse_par1061.end',
+		'endView' => 'ques.data.ntcse_par.end',
 		'testID' => 'A228909170',
 		'primaryID' => 'newcid',
 		'input_rull' => array(
@@ -23,7 +23,7 @@ return array(
 			if( $user_table->exists() ){
 				$user = $user_table->select('newcid','ques','sch_id','grade')->first();
 
-                Ques\Answerer::login('ntcse_par1061', $user->newcid);
+                Ques\Answerer::login('ntcse_par', $user->newcid);
 
 				//Session::put('ques', $user->ques);
 				//Session::put('grade', $user->grade);

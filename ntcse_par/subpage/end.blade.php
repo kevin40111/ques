@@ -1,4 +1,4 @@
-@include('ques.data.ntcse_par1061.head')
+@include('ques.data.ntcse_par.head')
 
 <div class="onepcssgrid-1000">
 	<div class="onerow">
@@ -13,4 +13,4 @@
 		</div>
 	</div>
 </div>
-@include('ques.data.ntcse_par1061.footer')
+@include('ques.data.ntcse_par.footer')
