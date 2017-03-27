@@ -17,7 +17,7 @@
     <?=$child_head?> 
     <div class="ui text container">
         <form action="https://sso.ntpc.edu.tw/login.aspx" method="get">
-            <input type="hidden" name="ReturnUrl" value="https://ntcse.ntpc.edu.tw/ques?type=par__<?=csrf_token()?>__ntcse_par">
+            <input type="hidden" name="ReturnUrl" value="http://ntcse.ntpc.edu.tw/ques?type=par__<?=csrf_token()?>__ntcse_par">
             <?=$child_body?>
         </form>
         <?=$child_footer?>
