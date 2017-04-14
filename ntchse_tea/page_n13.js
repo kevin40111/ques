@@ -1,0 +1,14 @@
+﻿$('input[name=p13q5c1],input[name=p13q4c1]').click(function(){if( $('input[name=p13q5c1]').is(':checked') && $('input[name=p13q4c1]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c2],input[name=p13q4c2]').click(function(){if( $('input[name=p13q5c2]').is(':checked') && $('input[name=p13q4c2]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c3],input[name=p13q4c3]').click(function(){if( $('input[name=p13q5c3]').is(':checked') && $('input[name=p13q4c3]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c4],input[name=p13q4c4]').click(function(){if( $('input[name=p13q5c4]').is(':checked') && $('input[name=p13q4c4]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c5],input[name=p13q4c5]').click(function(){if( $('input[name=p13q5c5]').is(':checked') && $('input[name=p13q4c5]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c6],input[name=p13q4c6]').click(function(){if( $('input[name=p13q5c6]').is(':checked') && $('input[name=p13q4c6]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c7],input[name=p13q4c7]').click(function(){if( $('input[name=p13q5c7]').is(':checked') && $('input[name=p13q4c7]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c8],input[name=p13q4c8]').click(function(){if( $('input[name=p13q5c8]').is(':checked') && $('input[name=p13q4c8]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c9],input[name=p13q4c9]').click(function(){if( $('input[name=p13q5c9]').is(':checked') && $('input[name=p13q4c9]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c10],input[name=p13q4c10]').click(function(){if( $('input[name=p13q5c10]').is(':checked') && $('input[name=p13q4c10]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c11],input[name=p13q4c11]').click(function(){if( $('input[name=p13q5c11]').is(':checked') && $('input[name=p13q4c11]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c12],input[name=p13q4c12]').click(function(){if( $('input[name=p13q5c12]').is(':checked') && $('input[name=p13q4c12]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c13],input[name=p13q4c13]').click(function(){if( $('input[name=p13q5c13]').is(':checked') && $('input[name=p13q4c13]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
+$('input[name=p13q5c14],input[name=p13q4c14]').click(function(){if( $('input[name=p13q5c14]').is(':checked') && $('input[name=p13q4c14]').is(':checked') ){alert('不能同時選擇');$(this).prop('checked',false);}});
