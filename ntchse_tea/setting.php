@@ -80,16 +80,13 @@ return array(
 
 	//存檔後執行
 	'update' => function($page,$controller,$insert){
-
 		if( $page=='2' ){
-			if( Input::get('p2q6c4','0') ==''){
+			if( Input::get('p2q6c4','') != '1'){
 				//未教專業群科課程
 				//跳掉專業群科
 				$controller->skip_page(array(13));
 			}
 		}
-
-
 	},
 
 	'publicData' => function($data){

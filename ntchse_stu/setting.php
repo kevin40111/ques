@@ -62,7 +62,7 @@ return array(
 						break;
 					case '3':
 						//下次問卷加入判斷，遇到先填4卷
-						$controller->skip_page(array(3,4,5,6,7,8,9,10,11,12,13,14,15,16,18));
+						$controller->skip_page(array(3,4,5,6,7,9,10,11,14,16,17,18,19));
 						break;
 					case '3B':
 						$controller->skip_page(array(3,4,5,6,7,9,11,12,14,16,17,18,19));
@@ -90,10 +90,12 @@ return array(
 	//存檔後執行
 	'update' => function($page,$controller,$insert){
 		if($page == '2'){
-			if( Input::get('p2q3','') =='1' || Input::get('p2q3','') =='3'){
-				$controller->skip_page(array(12));
-			}else{
-				$controller->skip_page(array(11));
+			if( Input::get('p2q2','') =='6' || Input::get('p2q2','') =='7' || Input::get('p2q2','') =='8'){
+				if (Input::get('p2q3','') =='1' || Input::get('p2q3','') =='3'){
+					$controller->skip_page(array(12));
+				}else{
+					$controller->skip_page(array(11));
+				}			
 			}
 		}
 	},

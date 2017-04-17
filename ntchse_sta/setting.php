@@ -38,8 +38,11 @@ return array(
 					1	5,6
 					2	3,4,7
 					*/
-					//跳掉專業群科
-					$controller->skip_page(array(8));
+					if ($user->sch_id != '011420' || $user->sch_id != '011315'){
+						//跳掉專業群科(除了智光跟東海)
+						$controller->skip_page(array(8));
+					}
+					
 					//跳掉董事會
 					if (substr($user->sch_id,2,1)!='1'){
 					//公立
