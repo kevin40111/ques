@@ -1,21 +1,32 @@
-<h4 class="ui dividing header"><?=$doc->title?></h4>
+<form ng-controller="loginController" class="ui form" ng-class="{error: errors}">
+    <div class="eight wide field">
+        <label>請輸入登入帳號：</label>
+        <input type="text" ng-model="identity_id" placeholder="登入帳號" />
+    </div>
+    <div class="ui error message">
+        <div class="header">資料錯誤</div>
+        <div class="ui horizontal list">
+        <span class="item" ng-repeat="error in errors">{{ error }}</span>
+        </div>
+    </div>
+    <md-button class="md-raised md-primary" ng-click="login()">登入</md-button>
+</from>
 
-<div class="ui message">
-    <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
-</div>
+<script>
+app.constant("CSRF_TOKEN", '<?=csrf_token()?>');
+app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN) {
 
-<div class="field">
-
-</div>
-
-<div class="nine wide field">
-    <label>請輸入登入帳號：</label>
-    <input type="text" name="identity_id" placeholder="登入帳號" />
-</div>
-
-<div class="ui error message">
-    <div class="header">資料錯誤</div>
-    <p><?=implode('、', array_filter($errors->all()))?></p>
-</div>
-
-<div class="ui positive button" onclick="document.forms[0].submit()">登入</div>
+    $scope.login = function() {
+        $http({method: 'POST', url: '/<?=$doc->dir?>/qlogin', data:{_token: CSRF_TOKEN, identity_id: $scope.identity_id}})
+        .success(function(data, status, headers, config) {
+            if (data.errors) {
+                $scope.errors = data.errors;
+            } else {
+               window.location = '/<?=$doc->dir?>/page';
+            }
+        }).error(function(e) {
+            console.log(e);
+        });
+    };
+});
+</script>

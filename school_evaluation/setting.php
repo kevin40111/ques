@@ -9,6 +9,7 @@ return array(
 
     'auth' => array(
         'loginView' => array(
+            'intro' => 'ques.data.school_evaluation.intro',
             'head' => 'ques.data.school_evaluation.head',
             'body' => 'ques.data.school_evaluation.body',
             'footer' => 'ques.data.school_evaluation.footer'
