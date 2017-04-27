@@ -34,7 +34,9 @@ app.config(function ($compileProvider, $mdIconProvider, $mdThemingProvider, $loc
             <?=$child_head?>
             <md-card-title>
                 <md-card-title-text>
-                <span class="md-headline"><?=$doc->title?></span>
+                <span class="md-headline">行政院科技部補助專題研究案</span>
+                <p  class="md-headline">&lceil;<?=$doc->title?>&rfloor;</p>
+                <p>計畫主持人：國立臺灣師範大學教育學系教授 王麗雲</p>
                 <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
                 </md-card-title-text>
             </md-card-title>
@@ -42,6 +44,11 @@ app.config(function ($compileProvider, $mdIconProvider, $mdThemingProvider, $loc
                 <?=$child_body?>
             </md-card-content>
         </md-card>
+    </md-content>
+    <md-content layout-align="start center">
+        <div style="float:left;width:250px"><img class="ui centered image" src="/resource/<?=$doc->dir?>/images/1.png"></div>
+        <div style="float:left;width:250px"><img class="ui centered image" src="/resource/<?=$doc->dir?>/images/2.png"></div>
+        <div style="float:left;width:250px"><img class="ui centered image" src="/resource/<?=$doc->dir?>/images/3.jpg"></div>
     </md-content>
 </body>
 </html>
