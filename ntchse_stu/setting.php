@@ -60,15 +60,15 @@ return array(
 					case '2B':
 						$controller->skip_page(array(3,5,8,9,10,11,12,13,14,15,17,18,19));
 						break;
-					case '3':
+					case '3A':
 						//下次問卷加入判斷，遇到先填4卷
-						$controller->skip_page(array(3,4,5,6,7,9,10,11,14,16,17,18,19));
+						$controller->skip_page(array(3,4,5,6,7,10,11,12,14,16,17,18,19));
 						break;
 					case '3B':
 						$controller->skip_page(array(3,4,5,6,7,9,11,12,14,16,17,18,19));
 						break;
 					case '3C':
-						$controller->skip_page(array(3,4,5,6,7,9,10,12,14,16,17,18,19));
+						$controller->skip_page(array(3,4,5,6,7,9,10,14,16,17,18,19));
 						break;
 					case '4':
 						$controller->skip_page(array(3,4,5,6,7,8,9,10,11,12,13,14,15,16,18));
@@ -91,7 +91,7 @@ return array(
 	'update' => function($page,$controller,$insert){
 		if($page == '2'){
 			if( Input::get('p2q2','') =='6' || Input::get('p2q2','') =='7' || Input::get('p2q2','') =='8'){
-				if (Input::get('p2q3','') =='1' || Input::get('p2q3','') =='3'){
+				if (Input::get('p2q3','') =='1' || Input::get('p2q3','') =='3' || Input::get('p2q3','') =='5'){
 					$controller->skip_page(array(12));
 				}else{
 					$controller->skip_page(array(11));
