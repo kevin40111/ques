@@ -18,60 +18,43 @@ return array(
         'testID' => 'A228909170',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'sch_name' => 'required',
-            'departmant_name' => 'required',
+            //'sch_name' => 'required',
+            //'departmant_name' => 'required',
             'organization_name' => 'required',
             'stu_id' => 'required'
         ),
         'input_rull_message' => array(
-            'sch_name.required' =>'學校未選擇',
-            'departmant_name.required' =>'科別未選擇',
+            //'sch_name.required' =>'學校未選擇',
+            //'departmant_name.required' =>'科別未選擇',
             'organization_name.required' =>'未輸入合作機構',
             'stu_id.required' =>'未輸入學號'
         ),
-        'checker' => function(&$validator,$controller){            
+        'checker' => function(&$validator,$controller){
             $sch_name = Input::get('sch_name');
-            $departmant_name = Input::get('departmant_name');
+            $department_name = Input::get('department_name');
             $organization_name = Input::get('organization_name');
             $stu_id = Input::get('stu_id');
 
-            /*$sch_id = DB::table('rows.dbo.row_20170504_173723_kz7t4')->where('C2805',$sch_name)->select('C2804 AS sch_id')->get();
-            $dep_id = DB::table('rows.dbo.row_20170504_173723_kz7t4')->where('C2807',$sch_name)->select('C2806 AS dep_id')->get();
-            $sha1_newcid = hashbytes('SHA1',$sch_id.$dep_id.$stu_id);*/
-            //dd($sha1_newcid);
-            //$pcreate_newcid = createnewcid($identity_id);
-            $sha1_newcid = '123';
+            $sch_id = DB::table('rows.dbo.row_20170504_173723_kz7t4')->where('C2805',$sch_name)->select('C2804 AS sch_id')->first()->sch_id;
+            $dep_id = DB::table('rows.dbo.row_20170504_173723_kz7t4')->where('C2805',$sch_name)->where('C2807',$department_name)->select('C2806 AS dep_id')->first()->dep_id;
+            $sha1_newcid = SHA1($sch_id.$dep_id.$stu_id);
+
             if (!DB::table('workstd_106.dbo.workstd_106_id')->where('newcid', $sha1_newcid)->exists()) {
-                DB::table('workstd_106.dbo.workstd_106_id')->insert(['sch_id' => $sch_id, 'departmant_id' => $dep_id, 'organization' => $organization_name, 'stu_id' => $stu_id, 'newcid' => $sha1_newcid]);
-            }  
-            Answerer::login('workstd_106', $sha1_newcid);
-            //$pcreate_newcid = createnewcid($identity_id);
-           /* $pcreate_newcid = $identity_id;
-
-            $user_table = DB::table('rows.dbo.row_20170412_174724_amp6z')->where('C1982', $identity_id)->select('id')->hashbytes('SHA1','   966623  ');
-
-            /*if ($user_table->exists()) {
-                if (!DB::table('school_evaluation.dbo.schoolEvaluation_id')->where('newcid', $pcreate_newcid)->exists()) {
-                    DB::table('school_evaluation.dbo.schoolEvaluation_id')->insert(['stdidnumber' => $identity_id, 'newcid' => $pcreate_newcid]);
-                }
-                Ques\Answerer::login('school_evaluation', $pcreate_newcid);
+                DB::table('workstd_106.dbo.workstd_106_id')->insert(['sch_id' => $sch_id, 'department_id' => $dep_id, 'organization' => $organization_name, 'stu_id' => $stu_id, 'newcid' => $sha1_newcid]);
             }
-            else
-            {
-                $validator->getMessageBag()->add('identity_id','您不是調查對象');
-            }*/
+            Ques\Answerer::login('workstd_106', $sha1_newcid);
         }
     ),
 
     'update' => function($page, $controller){
-        
+
     },
     'blade' => function($page, &$init){
-        
+
     },
 
     'hide' => function($page){
-        
+
     },
 
     'publicData' => function($data){
@@ -90,8 +73,7 @@ return array(
 
             case 'organizations':
 
-                $organizations = DB::table('rows.dbo.row_20170504_173723_kz7t4')->where('C2808', 'like', '%' . Input::get('searchText') . '%')->groupBy('C2808')->select('C2808 AS organization_name')->get();
-
+                $organizations = DB::table('rows.dbo.row_20170504_173723_kz7t4')->where('C2805',Input::get('sch_name'))->where('C2807',Input::get('department_name'))->where('C2808', 'like', '%' . Input::get('searchText') . '%')->groupBy('C2808')->select('C2808 AS organization_name')->get();
                 return ['organizations' =>  $organizations];
                 break;
         }
