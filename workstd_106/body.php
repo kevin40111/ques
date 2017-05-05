@@ -7,7 +7,7 @@
         </select>
 
         <label>請選擇科別：</label>
-        <select ng-model="department_name" ng-change="getOrganization(searchText)">
+        <select ng-model="department_name">
             <option value="">請選擇科別</option>
             <option ng-repeat="department in departments" ng-value="department.department_id">{{department.department_name}}</option>
         </select>
@@ -21,6 +21,7 @@
           md-item-text="item.organization_name"
           md-min-length="0"
           md-delay="500"
+          md-no-cache
           placeholder="搜尋建教合作的機構">
         <md-item-template>
 
@@ -32,8 +33,10 @@
         </md-not-found>
 
         </md-autocomplete>
-        <label>若無搜尋結果，請直接輸入建教合作的機構：</label>
-        <input type="text" ng-model="organization_name_add" placeholder="輸入建教合作的機構"/>
+        <div ng-show="test.length == 0">
+            <label>若無搜尋結果，請直接輸入建教合作的機構：</label>
+            <input type="text" ng-model="organization_name_add" placeholder="輸入建教合作的機構"/>
+        </div>
 
         <label>請輸入學號：</label>
         <input type="text" ng-model="stu_id" placeholder="學號" />
@@ -55,6 +58,7 @@ app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN,
     $scope.organization_name = '';
     $scope.organization_name_add = '';
     $scope.stu_id = '';
+    $scope.test = '';
 
     $scope.getSchools = function() {
         $scope.school_id = '';
