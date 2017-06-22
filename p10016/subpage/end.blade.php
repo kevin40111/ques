@@ -1,6 +1,6 @@
 <?php
-$table_prefix = 'tiped_104_0016.dbo.tiped_104_0016_p1';
-$newcid = Answerer::newcid();
+$table_prefix = 'tiped_105_0016.dbo.tiped_105_0016_p1';
+$newcid = Ques\Answerer::newcid();
 
 $network = DB::table($table_prefix . '_network AS n')
 	->leftJoin($table_prefix . '_pstat AS p', 'n.newcid', '=', 'p.newcid')
@@ -12,20 +12,21 @@ if (!$network->complete) {
 		DB::table($table_prefix . '_network')->where('newcid', $newcid)->update(['complete' => true, 'completed_at' => \Carbon\Carbon::now()->toDateTimeString()]);
 	} else {
 		return '';
-	}	
+	}
 }
 
 $my_commends = DB::table($table_prefix . '_network')->where('newcid_commend', $newcid)->where('complete', true)->count();
 
 $newcid_commend = $network->newcid_commend;
 
-$friends = DB::table('rows.dbo.row_20160429_153119_mbwud AS u')
-	->leftJoin('rows.dbo.row_20160429_153119_mbwud AS um', function($join){
-		$join->on('u.C1082', '=', 'um.C1082')->on('u.C1083', '=', 'um.C1083');
+$friends = DB::table('rows.dbo.row_20170518_150111_rkm25 AS u')
+	->where('u.C3269', 104)
+	->leftJoin('rows.dbo.row_20170518_150111_rkm25 AS um', function($join){
+		$join->on('u.C3270', '=', 'um.C3270')->on('u.C3271', '=', 'um.C3271');
 	})
 	->leftJoin($table_prefix . '_network AS n', 'u.id', '=', 'n.newcid')
 	->whereNull('n.complete')
-	->where('um.id', $newcid)->select('u.C1080 AS stdname','u.id')->get();
+	->where('um.id', $newcid)->select('u.C3273 AS stdname','u.id')->get();
 
 $wait_name = '';
 if (!empty($friends)) {
@@ -36,10 +37,11 @@ if (!empty($friends)) {
 }
 
 $orders = DB::table($table_prefix . '_network AS n1')
-	->leftJoin('rows.dbo.row_20160429_153119_mbwud AS u', 'n1.newcid', '=', 'u.id')
+	->leftJoin('rows.dbo.row_20170518_150111_rkm25 AS u', 'n1.newcid', '=', 'u.id')
+	->where('u.C3269', 104)
 	->where('n1.complete', true)
 	->orderBy('n1.completed_at', 'ASC')
-	->select('n1.id', 'n1.completed_at', 'u.C1082 AS dep', 'u.C1080 AS stdname')
+	->select('n1.id', 'n1.completed_at', 'u.C3270 AS dep', 'u.C3273 AS stdname')
 	->distinct()
 	->take(100)->get();
 
@@ -59,7 +61,7 @@ foreach($orders as $i => $order){
 
 
 $commends = DB::table($table_prefix . '_network AS n1')
-	->leftJoin($table_prefix . '_network AS n2', 'n1.newcid_commend', '=','n2.newcid')	
+	->leftJoin($table_prefix . '_network AS n2', 'n1.newcid_commend', '=','n2.newcid')
 	->where('n1.newcid_commend', '<>', 0)
 	->where('n1.complete', true)
 	->where('n2.complete', true)
@@ -88,16 +90,16 @@ foreach($commends as $i => $commend){
 
 <div class="ui inverted vertical grey center aligned segment" style="min-height:300px">
 	<h1 class="ui header" style="margin-top:3em">您的朋友也是本次調查對象嗎?</h1>
-	
-	<h1 class="ui header">邀請您的好朋友填答問卷，就有機會取得優質獎品！</h1>
-</div>	
 
-<div class="ui vertical stripe segment" style="padding:8em 0 8em 0">	
+	<h1 class="ui header">邀請您的好朋友填答問卷，就有機會取得優質獎品！</h1>
+</div>
+
+<div class="ui vertical stripe segment" style="padding:8em 0 8em 0">
 
 	<div class="ui middle aligned stackable grid container">
 		<div class="row">
 			<div class="ten wide left floated column">
-				<img class="ui fluid image" src="/images/figure.png">
+				<img class="ui fluid image" src="/resource/<?=$doc->dir?>/images/figure.jpg">
 			</div>
 			<div class="five wide column">
 				<h3 class="ui header">您的推薦ID</h3>
@@ -130,7 +132,7 @@ foreach($commends as $i => $commend){
 		</div>
 	</div>
 
-</div>	
+</div>
 
 <div class="ui vertical stripe basic segment" style="padding:8em 0 8em 0">
 	<div class="ui equal width grid">

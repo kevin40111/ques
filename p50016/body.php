@@ -1,19 +1,19 @@
 <form ng-controller="loginController" class="ui form" ng-class="{error: errors}">
     <div class="eight wide field">
-        <label>請選擇就讀學校：</label>
-        <select ng-model="sch_name" ng-change="getDeparment()">
-            <option value="">請選擇學校</option>
-            <option ng-repeat="school in schools" ng-value="school.sch_id">{{school.sch_name}}</option>
+        <label>請選擇系所：</label>
+        <select ng-model="department_name" ng-change="getDegree()">
+            <option value="">請選擇系所</option>
+            <option ng-repeat="department in departments" ng-value="department.department_name">{{department.department_name}}</option>
         </select>
 
-        <label>請選擇科別：</label>
-        <select ng-model="department_name">
-            <option value="">請選擇科別</option>
-            <option ng-repeat="department in departments" ng-value="department.department_id">{{department.department_name}}</option>
+        <label>請選擇學制：</label>
+        <select ng-model="set_degree">
+            <option value="">請選擇學制</option>
+            <option ng-repeat="degree in degrees" ng-value="degree.degree">{{degree.degree}}</option>
         </select>
 
         <label>請輸入身分證字號末五碼：</label>
-        <input type="text" ng-model="stu_id" placeholder="身分證字號末五碼" />
+        <input type="text" ng-model="stdidnumber_last5" placeholder="身分證字號末五碼" />
     </div>
     <div class="ui error message">
         <div class="header">資料錯誤</div>
@@ -27,29 +27,14 @@
 <script>
 app.constant("CSRF_TOKEN", '<?=csrf_token()?>');
 app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN, $q, $mdToast) {
-    $scope.sch_name = '';
+    $scope.set_degree = '';
     $scope.department_name = '';
-
-    $scope.stu_id = '';
-
-    $scope.getSchools = function() {
-        $scope.school_id = '';
-        $scope.loading = true;
-        $http({method: 'POST', url: 'grad104p1edu/public/schools', data:{}})
-        .success(function(data, status, headers, config) {
-            $scope.schools = data.schools;
-            $scope.loading = false;
-        }).error(function(e) {
-            console.log(e);
-        });
-    };
-
-    $scope.getSchools();
+    $scope.recommend = window.location.search.slice(1).split('=')[1];
+    $scope.stdidnumber_last5 = '';
 
     $scope.getDeparment = function() {
-        $scope.school_id = '';
         $scope.loading = true;
-        $http({method: 'POST', url: 'grad104p1edu/public/departments', data:{sch_name: $scope.sch_name}})
+        $http({method: 'POST', url: 'p50016/public/departments', data:{}})
         .success(function(data, status, headers, config) {
             $scope.departments = data.departments;
             $scope.loading = false;
@@ -58,32 +43,45 @@ app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN,
         });
     };
 
+    $scope.getDeparment();
+
+    $scope.getDegree = function() {
+        $scope.loading = true;
+        $http({method: 'POST', url: 'p50016/public/degrees', data:{department_name: $scope.department_name}})
+        .success(function(data, status, headers, config) {
+            $scope.degrees = data.degrees;
+            $scope.loading = false;
+        }).error(function(e) {
+            console.log(e);
+        });
+    };
+
     $scope.login = function() {
-        if (!$scope.sch_name) {
+        if (!$scope.department_name) {
             $mdToast.show(
                 $mdToast.simple()
-                .textContent('學校未選擇!')
+                .textContent('系所未選擇!')
                 .hideDelay(1000)
             );
-        } else if (!$scope.department_name) {
+        } else if (!$scope.set_degree) {
             $mdToast.show(
                 $mdToast.simple()
-                .textContent('科別未選擇!')
+                .textContent('學制未選擇!')
                 .hideDelay(1000)
             );
-        } else if ($scope.stu_id == '') {
+        } else if ($scope.stdidnumber_last5 == '') {
             $mdToast.show(
                 $mdToast.simple()
                 .textContent('未輸入身分證字號末五碼!')
                 .hideDelay(1000)
             );
         } else {
-            $http({method: 'POST', url: '/ques/<?=$doc->dir?>/qlogin', data:{_token: CSRF_TOKEN, sch_name: $scope.sch_name, department_name: $scope.department_name , stu_id: $scope.stu_id}})
+            $http({method: 'POST', url: '/<?=$doc->dir?>/qlogin', data:{_token: CSRF_TOKEN, department_name: $scope.department_name, set_degree: $scope.set_degree, stdidnumber_last5: $scope.stdidnumber_last5, recommend: $scope.recommend}})
             .success(function(data, status, headers, config) {
                 if (data.errors) {
                     $scope.errors = data.errors;
                 } else {
-                    window.location = '/ques/<?=$doc->dir?>/page';
+                    window.location = '/<?=$doc->dir?>/page';
                 }
             }).error(function(e) {
                 console.log(e);

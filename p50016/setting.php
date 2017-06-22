@@ -6,16 +6,16 @@ return array(
     'buildQuestion' => 'v10',
     'buildQuestionEvent' => 'buildQuestionEvent__v1.9.3.utf8.php',
     'logInput' => true,
-    'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/p10016',
+    'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/p50016',
 
     'auth' => array(
         'loginView' => array(
-            'intro' => 'ques.data.p10016.intro',
-            'head' => 'ques.data.p10016.head',
-            'body' => 'ques.data.p10016.body',
-            'footer' => 'ques.data.p10016.footer'
+            'intro' => 'ques.data.p50016.intro',
+            'head' => 'ques.data.p50016.head',
+            'body' => 'ques.data.p50016.body',
+            'footer' => 'ques.data.p50016.footer'
         ),
-        'endView' => 'ques.data.p10016.end',
+        'endView' => 'ques.data.p50016.end',
         'primaryID' => 'newcid',
         'input_rull' => array(
             'department_name' => 'required',
@@ -34,21 +34,21 @@ return array(
             $set_degree = Input::get('set_degree');
             $stdidnumber_last5 = strtoupper(Input::get('stdidnumber_last5'));
 
-            $user_table = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 104)->where('C3270', $department_name)->where('C3271', $set_degree)->where('C3274', $stdidnumber_last5)->select('id');
+            $user_table = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 100)->where('C3270', $department_name)->where('C3271', $set_degree)->where('C3274', $stdidnumber_last5)->select('id');
 
             if ($user_table->exists()) {
                 $user = $user_table->first();
 
-                if (!DB::table('tiped_105_0016.dbo.tiped_105_0016_p1_network')->where('newcid', $user->id)->exists()) {
-                    $commend = DB::table('tiped_105_0016.dbo.tiped_105_0016_p1_network')->where('id', Input::get('recommend'))->select('newcid')->first();
+                if (!DB::table('tiped_105_0016.dbo.tiped_105_0016_p5_network')->where('newcid', $user->id)->exists()) {
+                    $commend = DB::table('tiped_105_0016.dbo.tiped_105_0016_p5_network')->where('id', Input::get('recommend'))->select('newcid')->first();
                     $newcid_commend = isset($commend) ? $commend->newcid : 0;
-                    DB::table('tiped_105_0016.dbo.tiped_105_0016_p1_network')->insert([
+                    DB::table('tiped_105_0016.dbo.tiped_105_0016_p5_network')->insert([
                         'newcid' => $user->id,
                         'newcid_commend' => $newcid_commend,
                         'created_at' => \Carbon\Carbon::now()->toDateTimeString()
                     ]);
                 }
-                Ques\Answerer::login('p10016', $user->id);
+                Ques\Answerer::login('p50016', $user->id);
             }
             else
             {
@@ -83,13 +83,13 @@ return array(
 
         switch($data){
             case 'departments':
-                $departments = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 104)->groupBy('C3270')->select('C3270 AS department_name')->get();
+                $departments = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 100)->groupBy('C3270')->select('C3270 AS department_name')->get();
 
                 return ['departments' =>  $departments];
                 break;
 
             case 'degrees':
-                $degrees = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 104)->where('C3270',Input::get('department_name'))->groupBy('C3271')->select('C3271 AS degree')->get();
+                $degrees = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 100)->where('C3270',Input::get('department_name'))->groupBy('C3271')->select('C3271 AS degree')->get();
 
                 return ['degrees' =>  $degrees];
                 break;

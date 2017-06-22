@@ -1,5 +1,5 @@
 <?php
-$table_prefix = 'tiped_105_0016.dbo.tiped_105_0016_p3';
+$table_prefix = 'tiped_105_0016.dbo.tiped_105_0016_p5';
 $newcid = Ques\Answerer::newcid();
 
 $network = DB::table($table_prefix . '_network AS n')
@@ -20,7 +20,7 @@ $my_commends = DB::table($table_prefix . '_network')->where('newcid_commend', $n
 $newcid_commend = $network->newcid_commend;
 
 $friends = DB::table('rows.dbo.row_20170518_150111_rkm25 AS u')
-	->where('u.C3269', 102)
+	->where('u.C3269', 100)
 	->leftJoin('rows.dbo.row_20170518_150111_rkm25 AS um', function($join){
 		$join->on('u.C3270', '=', 'um.C3270')->on('u.C3271', '=', 'um.C3271');
 	})
@@ -38,7 +38,7 @@ if (!empty($friends)) {
 
 $orders = DB::table($table_prefix . '_network AS n1')
 	->leftJoin('rows.dbo.row_20170518_150111_rkm25 AS u', 'n1.newcid', '=', 'u.id')
-	->where('u.C3269', 102)
+	->where('u.C3269', 100)
 	->where('n1.complete', true)
 	->orderBy('n1.completed_at', 'ASC')
 	->select('n1.id', 'n1.completed_at', 'u.C3270 AS dep', 'u.C3273 AS stdname')
@@ -105,7 +105,7 @@ foreach($commends as $i => $commend){
 				<h3 class="ui header">您的推薦ID</h3>
 				<p><span style="color:#00F"><?=$network->id?></span></p>
 				<h3 class="ui header">個人填答網址</h3>
-				<p><span style="color:#F00"><?=secure_url('', $parameters = array('p30016')) . '?id=' . $network->id?></span></p>
+				<p><span style="color:#F00"><?=secure_url('', $parameters = array('p50016')) . '?id=' . $network->id?></span></p>
 			</div>
 		</div>
 	</div>
@@ -180,4 +180,4 @@ foreach($commends as $i => $commend){
 	</div>
 </div>
 
-@include('ques.data.p30016.footer')
+@include('ques.data.p50016.footer')

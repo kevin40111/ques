@@ -10,6 +10,7 @@ return array(
 
     'auth' => array(
         'loginView' => array(
+            'intro' => 'ques.data.p30016.intro',
             'head' => 'ques.data.p30016.head',
             'body' => 'ques.data.p30016.body',
             'footer' => 'ques.data.p30016.footer'
@@ -17,34 +18,37 @@ return array(
         'endView' => 'ques.data.p30016.end',
         'primaryID' => 'newcid',
         'input_rull' => array(
-            'udepname' => 'required',
-            'stdidnumber_last5' => 'required|alpha_num|size:5'
+            'department_name' => 'required',
+            'set_degree' => 'required',
+            'stdidnumber_last5' => 'required|alpha_num'
         ),
         'input_rull_message' => array(
-            'udepname.required'  =>'就讀系所必填',
+            'department_name.required'  =>'就讀系所必填',
+            'set_degree' => '學制必填',
             'stdidnumber_last5.required' =>'身分證字號末五碼必填',
             'stdidnumber_last5.alpha_num' =>'身分證字號末五碼格式錯誤',
-            'stdidnumber_last5.size' =>'身分證字號末五碼必需是5個字',
         ),
         'checker' => function(&$validator, $controller) {
 
-            $udepname = Input::get('udepname');
+            $department_name = Input::get('department_name');
+            $set_degree = Input::get('set_degree');
             $stdidnumber_last5 = strtoupper(Input::get('stdidnumber_last5'));
 
-            $user_table = DB::table('rows.dbo.row_20160429_154625_zbd7l')->where('C1088', $udepname)->where('C1090', $stdidnumber_last5)->select('id');
+            $user_table = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 102)->where('C3270', $department_name)->where('C3271', $set_degree)->where('C3274', $stdidnumber_last5)->select('id');
 
             if ($user_table->exists()) {
                 $user = $user_table->first();
-                Answerer::login('p30016', $user->id);
-                if (!DB::table('tiped_104_0016.dbo.tiped_104_0016_p3_network')->where('newcid', $user->id)->exists()) {
-                    $commend = DB::table('tiped_104_0016.dbo.tiped_104_0016_p3_network')->where('id', Input::get('id'))->select('newcid')->first();
+
+                if (!DB::table('tiped_105_0016.dbo.tiped_105_0016_p3_network')->where('newcid', $user->id)->exists()) {
+                    $commend = DB::table('tiped_105_0016.dbo.tiped_105_0016_p3_network')->where('id', Input::get('recommend'))->select('newcid')->first();
                     $newcid_commend = isset($commend) ? $commend->newcid : 0;
-                    DB::table('tiped_104_0016.dbo.tiped_104_0016_p3_network')->insert([
+                    DB::table('tiped_105_0016.dbo.tiped_105_0016_p3_network')->insert([
                         'newcid' => $user->id,
                         'newcid_commend' => $newcid_commend,
                         'created_at' => \Carbon\Carbon::now()->toDateTimeString()
                     ]);
                 }
+                Ques\Answerer::login('p30016', $user->id);
             }
             else
             {
@@ -78,7 +82,17 @@ return array(
     'publicData' => function($data) {
 
         switch($data){
+            case 'departments':
+                $departments = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 102)->groupBy('C3270')->select('C3270 AS department_name')->get();
 
+                return ['departments' =>  $departments];
+                break;
+
+            case 'degrees':
+                $degrees = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 102)->where('C3270',Input::get('department_name'))->groupBy('C3271')->select('C3271 AS degree')->get();
+
+                return ['degrees' =>  $degrees];
+                break;
         }
 
     }
