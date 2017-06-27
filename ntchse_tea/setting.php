@@ -19,7 +19,7 @@ return array(
 		),
 		//登入時執行
 		'checker' => function(&$validator,$controller){
-			$user_table = DB::table('ntchse106_1.dbo.ntchse106tea_pstat')->where('newcid',Input::get('identity_id'));
+			$user_table = DB::table('ntchse_106_1.dbo.ntchse106tea_pstat')->where('newcid',Input::get('identity_id'));
 			if( $user_table->exists() ){
 				$user = $user_table->select('newcid','ques','sch_id')->first();
 
@@ -43,7 +43,7 @@ return array(
 					*/
 
 					//跳掉董事會
-					if (substr($user->sch_id,2,1)!='1'){
+					/*if (substr($user->sch_id,2,1)!='1'){
 					//公立
 						$controller->skip_page(array(14));
 					}
@@ -65,7 +65,7 @@ return array(
 						//例外狀況填3卷
 						$controller->skip_page(array(3,4,6,7,8,9,10));
 						break;
-					}
+					}*/
 					//以上其勳加入
 				//}
 
@@ -80,13 +80,13 @@ return array(
 
 	//存檔後執行
 	'update' => function($page,$controller,$insert){
-		if( $page=='2' ){
+		/*if( $page=='2' ){
 			if( Input::get('p2q6c4','') != '1'){
 				//未教專業群科課程
 				//跳掉專業群科
 				$controller->skip_page(array(13));
 			}
-		}
+		}*/
 	},
 
 	'publicData' => function($data){
