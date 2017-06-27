@@ -43,7 +43,7 @@ $orders = DB::table($table_prefix . '_network AS n1')
 	->orderBy('n1.completed_at', 'ASC')
 	->select('n1.id', 'n1.completed_at', 'u.C3270 AS dep', 'u.C3273 AS stdname')
 	->distinct()
-	->take(100)->get();
+	->take(50)->get();
 
 $completedRank = '';
 foreach($orders as $i => $order){
@@ -158,10 +158,10 @@ foreach($commends as $i => $commend){
 				</tbody>
 			</table>
 		</div>
-		<?php if (count($orders) <= 100) : ?>
+		<?php if (count($orders) <= 50) : ?>
 			<div class="ui text container column">
 				<h4 class="ui horizontal header divider">早鳥好康填寫排行榜</h4>
-				<center><h5><前100名填答者即獲100元超商禮券></h5></center>
+				<center><h5><前50名填答者即獲100元超商禮券></h5></center>
 				<table class="ui very basic table">
 					<thead>
 						<tr class="center aligned">

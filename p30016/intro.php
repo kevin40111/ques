@@ -36,9 +36,9 @@ app.config(function ($compileProvider, $mdIconProvider, $mdThemingProvider, $loc
                 <md-card-title-text>
                 <p  class="md-headline"><?=$doc->title?></p>
                 <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
-                <h5 class="ui blue header"><早鳥好康><div class="sub header">每屆前50名填答者可獲100元超商禮券</div></h5>
-                <h5 class="ui blue header"><推薦有賞><div class="sub header"> 每屆推薦連結超過3位的前10名可獲500元超商禮券</div></h5>
-                <h5 class="ui blue header"><摸彩好禮> <div class="sub header"> 膠囊咖啡機、2TB行動硬碟、小米智慧手環、藍芽無線運動耳機、陽明小書包等豐富好禮等你試手氣!!!</div></h5>
+                <h5 class="ui blue header"> <第一重>籤運王 <div class="sub header"> 6000元禮券、膠囊咖啡機、行動硬碟、鐵三角運動耳機等豐富好禮等你試手氣!! </div></h5>
+                <h5 class="ui blue header"> <第二重>呼朋引伴王 <div class="sub header"> 每屆推薦連結超過3位的前10名可獲500元超商禮券 </div></h5>
+                <h5 class="ui blue header"> <第三重>快手王 <div class="sub header"> 每屆前50名填答者可獲100元超商禮券 </div></h5>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
