@@ -54,12 +54,12 @@ app.controller('loginController', function($scope, $http, $location, CSRF_TOKEN,
                 .hideDelay(1000)
             );
         } else {
-            $http({method: 'POST', url: '/ques/<?=$doc->dir?>/qlogin', data:{_token: CSRF_TOKEN, dep_name: $scope.dep_name, stu_id: $scope.stu_id, recommend: $scope.recommend}})
+            $http({method: 'POST', url: '/<?=$doc->dir?>/qlogin', data:{_token: CSRF_TOKEN, dep_name: $scope.dep_name, stu_id: $scope.stu_id, recommend: $scope.recommend}})
             .success(function(data, status, headers, config) {
                 if (data.errors) {
                     $scope.errors = data.errors;
                 } else {
-                    window.location = '/ques/<?=$doc->dir?>/page';
+                    window.location = '/<?=$doc->dir?>/page';
                 }
             }).error(function(e) {
                 console.log(e);
