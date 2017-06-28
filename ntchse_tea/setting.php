@@ -19,7 +19,7 @@ return array(
 		),
 		//登入時執行
 		'checker' => function(&$validator,$controller){
-			$user_table = DB::table('ntchse_106_1.dbo.ntchse106tea_pstat')->where('newcid',Input::get('identity_id'));
+			$user_table = DB::table('ntchse106_1.dbo.ntchse106tea_pstat')->where('newcid',Input::get('identity_id'));
 			if( $user_table->exists() ){
 				$user = $user_table->select('newcid','ques','sch_id')->first();
 
