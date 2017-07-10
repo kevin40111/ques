@@ -6,8 +6,8 @@
             <option ng-repeat="department in departments" ng-value="department.dep_name">{{department.department_name}}</option>
         </select>
 
-        <label>請輸入身分證號碼後五碼：</label>
-        <input type="text" ng-model="stu_id" placeholder="身分證號碼後五碼" />
+        <label>請輸入身分證號碼：</label>
+        <input type="text" ng-model="stu_id" placeholder="身分證號碼" />
         
     </div>
     <div class="ui error message">

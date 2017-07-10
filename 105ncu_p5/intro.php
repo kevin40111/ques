@@ -34,7 +34,7 @@ app.config(function ($compileProvider, $mdIconProvider, $mdThemingProvider, $loc
             <?=$child_head?>
             <md-card-title>
                 <md-card-title-text>
-                <p  class="md-headline">&lceil;<?=$doc->title?>&rfloor;</p>
+                <!-- <p  class="md-headline">&lceil;<?=$doc->title?>&rfloor;</p> -->
                 <p>調查時間：<?=date("Y-m-d",strtotime($doc->start_at))?>~<?=date("Y-m-d",strtotime($doc->close_at))?></p>
                 <h5 class="ui blue header">問卷來分享！排名拿大獎！<div class="sub header">填完問卷後將您的專屬網址分享給其他人，累積人氣領獎券！</div></h5>
                 </md-card-title-text>
