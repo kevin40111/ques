@@ -26,7 +26,7 @@ return array(
             'stu_id.alpha_num' =>'身分證字號格式錯誤',
             'stu_id.size' =>'身分證字號必需是10個字',
         ),
-        'checker' => function(&$validator,$controller){       
+        'checker' => function(&$validator,$controller){
             $dep_name = Input::get('dep_name');
             $stdidnumber = strtoupper(Input::get('stu_id'));
 
@@ -68,7 +68,7 @@ return array(
     'publicData' => function($data){
         switch ($data) {
             case 'departments':
-                $departments = DB::table('rows.dbo.row_20170626_144347_irgy5')->groupBy('C3346')->select('C3346 AS department_name')->get();
+                $departments = DB::table('rows.dbo.row_20170626_144347_irgy5')->groupBy('C3346')->orderByRaw('C3346 COLLATE Chinese_PRC_Stroke_ci_as')->select('C3346 AS department_name')->get();
 
                 return ['departments' =>  $departments];
                 break;

@@ -74,7 +74,7 @@ return array(
     'publicData' => function($data){
         switch ($data) {
             case 'departments':
-                $departments = DB::table('rows.dbo.row_20170626_153718_rkxak')->groupBy('C3393')->select('C3393 AS department_name')->get();
+                $departments = DB::table('rows.dbo.row_20170626_153718_rkxak')->groupBy('C3393')->orderByRaw('C3393 COLLATE Chinese_PRC_Stroke_ci_as')->select('C3393 AS department_name')->get();
 
                 return ['departments' =>  $departments];
                 break;

@@ -83,7 +83,7 @@ return array(
 
         switch($data){
             case 'departments':
-                $departments = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 100)->groupBy('C3270')->select('C3270 AS department_name')->get();
+                $departments = DB::table('rows.dbo.row_20170518_150111_rkm25')->where('C3269', 100)->groupBy('C3270')->orderByRaw('C3270 COLLATE Chinese_PRC_Stroke_ci_as')->select('C3270 AS department_name')->get();
 
                 return ['departments' =>  $departments];
                 break;
