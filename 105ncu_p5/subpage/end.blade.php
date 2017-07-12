@@ -97,7 +97,7 @@ foreach($commends as $i => $commend){
 	<div class="ui middle aligned stackable grid container">
 		<div class="row">
 			<div class="ten wide left floated column">
-				<img class="ui fluid image" src="/images/figure.png">
+				<img class="ui fluid image" src="/resource/<?=$doc->dir?>/images/NCU.png">
 			</div>
 			<div class="five wide column">
 				<h3 class="ui header">您的推薦ID</h3>
@@ -132,7 +132,7 @@ foreach($commends as $i => $commend){
 
 </div>	
 
-<div class="ui vertical stripe basic segment" style="padding:8em 0 8em 0">
+<!-- <div class="ui vertical stripe basic segment" style="padding:8em 0 8em 0">
 	<div class="ui equal width grid">
 		<div class="ui text container column">
 			<h4 class="ui horizontal header divider">推薦排行榜</h4>
@@ -159,6 +159,6 @@ foreach($commends as $i => $commend){
 		<?php if (count($orders) <= 100) : ?>
 		<?php endif ?>
 	</div>
-</div>
+</div> -->
 
 @include('ques.data.105ncu_p5.footer')
