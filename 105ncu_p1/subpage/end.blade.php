@@ -92,7 +92,7 @@ foreach($commends as $i => $commend){
 	<h1 class="ui header">邀請您的好朋友填答問卷，就有機會取得優質獎品！</h1>
 </div>	
 
-<div class="ui vertical stripe segment" style="padding:8em 0 8em 0">	
+<div class="ui vertical stripe segment" style="padding:2em 0 2em 0">
 
 	<div class="ui middle aligned stackable grid container">
 		<div class="row">
