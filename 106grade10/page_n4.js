@@ -1,0 +1,1 @@
+$('#QID_04rx05zz .flex-50').attr('style', 'max-width: 100%');
