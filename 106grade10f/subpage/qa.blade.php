@@ -16,7 +16,7 @@
 			<a class="item" href="#q11">Q11.為何要問個人隱私問題如家庭、收入？</a>
 			<a class="item" href="#q12">Q12.若我嘗試多次，都無法登入問卷網站怎麼辦？</a>
 			<a class="item" href="#q13">Q13.問卷填答錯誤，可否修改？</a>
-			<a class="item" href="#q13">Q14.填完之後，有抽獎活動嗎？</a>
+			<a class="item" href="#q14">Q14.填完之後，有抽獎活動嗎？</a>
 		</div>
 	</div>
 
