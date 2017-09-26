@@ -1,7 +1,7 @@
 <?php
 return array(
 	'logInput' => true,
-	'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/1061_ntcse_par',//這裡有改
+	'logInputDir' => '//192.168.0.125/quesnlb_ap/WEB_log/QUES-DB/1062_ntcse_par',//這裡有改
     'login_customize' => 1,
  	'skip' => false,
 	'auth' => array(
@@ -19,7 +19,7 @@ return array(
 		),
 		//登入時執行
 		'checker' => function(&$validator,$controller){
-			$user_table = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->where('newcid',Input::get('identity_id'));
+			$user_table = DB::table('ntcse106_2.dbo.ntcse106par_pstat')->where('newcid',Input::get('identity_id'));
 			if( $user_table->exists() ){
 				$user = $user_table->select('newcid','ques','sch_id','grade')->first();
 
@@ -37,7 +37,7 @@ return array(
 	//存檔後執行
 	'update' => function($page,$controller,$insert){
 		if( $page=='2' ){
-			$user_table = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->where('newcid', Ques\Answerer::newcid());
+			$user_table = DB::table('ntcse106_2.dbo.ntcse106par_pstat')->where('newcid', Ques\Answerer::newcid());
 			if( $user_table->exists() ){
 				$user = $user_table->select('newcid','ques','sch_id','grade')->first();
 				//判斷填答答案決定跳頁
@@ -51,7 +51,12 @@ return array(
 				6	3,4,5,6,7,8,9,10,11,12,14,17
 
 				*/
-				if($user->sch_id=='014645'){
+				if($user->sch_id=='014795'){
+					// 同榮國小只填校長向度
+					$controller->skip_page(array(4,5,6,7,8,9,10,11,12,13,14,15,16,17));
+					DB::table('ntcse106_2.dbo.ntcse106par_pstat')
+					->where('newcid', $user->newcid)
+					->update(array('ques' => '100'));
 					/*
 					if(Input::get('p2q3sc1','') =='3' || Input::get('p2q3sc1','') =='4'){
 						$controller->skip_page(array(4,5,6,7,8,9,10,11,12,13,14,15,16,17));
@@ -69,11 +74,11 @@ return array(
 				elseif ((Input::get('p2q3sc1','') =='3' || Input::get('p2q3sc1','') =='4') && (Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4')) {
 					//if((Input::get('p2q3sc2','') =='3' || Input::get('p2q3sc2','') =='4')){
 						//當第2頁的校長跟行政都填3.4分時，則隨機分配
-					$counts = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->select(DB::raw('COUNT(*) as cc'))->where('sch_id',  $user->sch_id)->whereIn('ques',array('1', '2'))->first();
+					$counts = DB::table('ntcse106_2.dbo.ntcse106par_pstat')->select(DB::raw('COUNT(*) as cc'))->where('sch_id',  $user->sch_id)->whereIn('ques',array('1', '2'))->first();
 					if ($counts->cc <= 6){
 						$isShuntN = ($counts->cc % 2) + 1;
 					}else{
-						$types = DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+						$types = DB::table('ntcse106_2.dbo.ntcse106par_pstat')
 						->select(DB::raw('ques'))
 						->where('sch_id',  $user->sch_id)
 						->whereIn('ques',array('1', '2'))
@@ -91,7 +96,7 @@ return array(
 							break;
 					}
 					//更新ques值為 $isShuntN
-					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+					DB::table('ntcse106_2.dbo.ntcse106par_pstat')
 					->where('newcid', $user->newcid)
 					->update(array('ques' => $isShuntN));
 					//}
@@ -107,7 +112,7 @@ return array(
 						$controller->skip_page(array(4,5,6,7,8,9,10,11,12,13,15,16));//這裡有改
 					}
 					//更新ques值為 1
-					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+					DB::table('ntcse106_2.dbo.ntcse106par_pstat')
 					->where('newcid', $user->newcid)
 					->update(array('ques' => '1'));
 					//}
@@ -124,18 +129,18 @@ return array(
 					}
 					
 					//更新ques值為 2
-					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+					DB::table('ntcse106_2.dbo.ntcse106par_pstat')
 					->where('newcid', $user->newcid)
 					->update(array('ques' => '2'));
 					//}
 				}
 				else{
 					//其他四卷平均分配
-					$counts = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->select(DB::raw('COUNT(*) as cc'))->where('sch_id',  $user->sch_id)->whereIn('ques',array('3A', '3B', '4', '5', '6'))->first();
+					$counts = DB::table('ntcse106_2.dbo.ntcse106par_pstat')->select(DB::raw('COUNT(*) as cc'))->where('sch_id',  $user->sch_id)->whereIn('ques',array('3A', '3B', '4', '5', '6'))->first();
 					if ($counts->cc <= 12){
 						$isShuntN = ($counts->cc % 4) + 3;
 					}else{
-						$types = DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+						$types = DB::table('ntcse106_2.dbo.ntcse106par_pstat')
 						->select(DB::raw('case ques when \'3A\' then \'3\' when \'3B\' then \'3\' else ques end as ques'))
 						->where('sch_id',  $user->sch_id)
 						->whereIn('ques',array('3A', '3B', '4', '5', '6'))
@@ -167,19 +172,19 @@ return array(
 					}
 
 					//更新ques值為 $isShuntN
-					DB::table('ntcse106_1.dbo.ntcse106par_pstat')
+					DB::table('ntcse106_2.dbo.ntcse106par_pstat')
 					->where('newcid', $user->newcid)
 					->update(array('ques' => $isShuntN));
 				}
 			}
 		}
 //有QQ
-		if( $page=='6' ){
-			if( Input::get('p6q1','') =='1' || Input::get('p6q1','') =='2' && Input::get('p6q2') =='1' || Input::get('p6q2') =='2' ){
+		// if( $page=='6' ){
+		// 	if( Input::get('p6q1','') =='1' || Input::get('p6q1','') =='2' && Input::get('p6q2') =='1' || Input::get('p6q2') =='2' ){
 
-				$controller->skip_page(array(7,8));
-			}
-		}
+		// 		$controller->skip_page(array(7,8));
+		// 	}
+		// }
 	},
 
 	'hide' => function($page){
@@ -188,9 +193,31 @@ return array(
 
 		if( $page=='13' ){
 			$hide_array = array();
-			$pageanswer = DB::table('ntcse106_1.dbo.ntcse106par_pstat')->where('newcid', Ques\Answerer::newcid())->select('grade')->first();
+			$pageanswer = DB::table('ntcse106_2.dbo.ntcse106par_pstat')->where('newcid', Ques\Answerer::newcid())->select('grade')->first();
 			if( $pageanswer->grade < '7' ){//這裡有改
 				array_push($hide_array,'QID_csyop0h1');
+				return $hide_array;
+			}else{
+				return false;
+			}
+		}
+
+		if ( $page=='7' ) {
+			$hide_array = array();
+			$pageanswer = DB::table('ntcse106_2.dbo.ntcse106par_page6')->where('newcid', Ques\Answerer::newcid())->select('p6q1','p6q2')->first();
+			if( ($pageanswer->p6q1 == '1' || $pageanswer->p6q1 == '2') && ($pageanswer->p6q2 == '1' || $pageanswer->p6q2 == '2') ){//這裡有改
+				array_push($hide_array,'QID_z2q6vn21','QID_jrs3cwpb','QID_3u0bduju');
+				return $hide_array;
+			}else{
+				return false;
+			}
+		}
+
+		if ( $page=='8' ) {
+			$hide_array = array();
+			$pageanswer = DB::table('ntcse106_2.dbo.ntcse106par_page6')->where('newcid', Ques\Answerer::newcid())->select('p6q1','p6q2')->first();
+			if( ($pageanswer->p6q1 == '1' || $pageanswer->p6q1 == '2') && ($pageanswer->p6q2 == '1' || $pageanswer->p6q2 == '2') ){//這裡有改
+				array_push($hide_array,'QID_p6pvnqsv','QID_klvfh57w','QID_yjlam5pq');
 				return $hide_array;
 			}else{
 				return false;
