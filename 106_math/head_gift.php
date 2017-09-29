@@ -1,0 +1,1 @@
+<img class="ui centered image" src="/resource/<?=$doc->dir?>/images/end.jpg" style="width:800px;">
